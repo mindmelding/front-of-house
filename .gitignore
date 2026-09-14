@@ -1,6 +1,7 @@
 overlay/*
 !overlay/README.md
 !overlay/*.template.md
+!overlay/mcp.template.json
 inbox/*.local.md
 .DS_Store
 __pycache__/

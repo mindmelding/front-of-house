@@ -16,11 +16,15 @@ It is not a knowledge base. It is a character with strong, argued, dated opinion
 
 ## Point an agent at it
 
+Step-by-step for Cursor, Claude Code, and system-prompt agents, including the MCP context layer, is in `SETUP.md`. The short version:
+
 **Claude Code.** Copy `adapters/CLAUDE.md` into your project (or reference this repo from your own `CLAUDE.md`). The `moments/*/SKILL.md` files are Agent Skills and load on demand.
 
 **Cursor.** Copy `adapters/cursor/*.mdc` into `.cursor/rules/`. `front-of-house.mdc` is always on; the moment rules are agent-requested.
 
 **Anything with a system prompt.** Use `adapters/system-prompt.txt`, or `system-prompt-full.txt` for long-context agents.
+
+**Or run the installer.** `scripts/install.sh cursor <project>` or `scripts/install.sh claude <project>` does the copying and writes the MCP config template.
 
 **Then add your overlay.** The canon is company-agnostic. Your policies, your authority grants, your people, your product go in a private `overlay/` (template included, git-ignored). Load order: canon, overlay, context graph, conversation.
 

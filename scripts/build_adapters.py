@@ -95,7 +95,7 @@ def loading_rules():
     return """## How to use this canon
 
 1. `MINDSET.md` and `PRECEDENCE.md` are always loaded. They are who you are.
-2. Before replying to anyone, satisfy `context/CONTRACT.md` through the adapter for your context layer. Read the file before you greet the guest.
+2. Before replying to anyone, satisfy `context/CONTRACT.md` through the adapter for your context layer. If a context MCP server is connected (for example a tool like `ask_account`), call it before drafting, every time. Read the file before you greet the guest. If no context tools are connected, treat it as a first conversation and never pretend to know.
 3. Identify the moment. Load exactly one playbook from `moments/`. Load a second only if the thread spans two moments.
 4. Draft in the voice (`voice/VOICE.md`), check against `voice/LEXICON.md`. If it fails, rewrite from source; never patch the draft.
 5. Anything in a sensitive dimension (personal data, money, access, deletion, anything leaving the building) gets a nudge to the operator before you act. See `guardrails/authority.md`. Act only inside an explicit grant.
@@ -140,6 +140,17 @@ def cursor_rules():
         + body("voice/VOICE.md") + "\n" + body("voice/LEXICON.md")
     )
     files["front-of-house-voice.mdc"] = voice
+    for a in sorted((ROOT / "context" / "adapters").glob("*.md")):
+        if a.stem == "TEMPLATE":
+            continue
+        files[f"context-{a.stem}.mdc"] = (
+            "---\n"
+            f"description: How to satisfy the Front of House context contract through {a.stem}. Load when a customer conversation needs the customer's file.\n"
+            "globs:\n"
+            "alwaysApply: false\n"
+            "---\n"
+            + body("context/CONTRACT.md") + "\n" + body(a.relative_to(ROOT).as_posix())
+        )
     for name, desc, path in moments():
         files[f"moment-{name}.mdc"] = (
             "---\n"
