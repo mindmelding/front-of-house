@@ -1,0 +1,20 @@
+{
+  "name": "front-of-house",
+  "version": "0.1.0",
+  "description": "A hospitality canon any customer-facing agent can load. Eleven Madison Park mindset, nudge-first on anything sensitive, one playbook per customer moment.",
+  "contextFileName": "GEMINI.md",
+  "mcpServers": {
+    "moonbase": {
+      "httpUrl": "https://yavin.moonbase.ai/mcp",
+      "headers": { "Authorization": "Bearer $MOONBASE_MCP_KEY" }
+    }
+  },
+  "settings": [
+    {
+      "name": "Moonbase MCP key",
+      "description": "Bearer key (starts with mb_) for the Moonbase context layer. Optional; without it the agent treats every conversation as a first one.",
+      "envVar": "MOONBASE_MCP_KEY",
+      "sensitive": true
+    }
+  ]
+}

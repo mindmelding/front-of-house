@@ -1,0 +1,16 @@
+{
+  "name": "front-of-house",
+  "owner": { "name": "Sean Mancillas", "url": "https://github.com/scmancillas" },
+  "metadata": { "description": "Marketplace hosting the Front of House hospitality canon." },
+  "plugins": [
+    {
+      "name": "front-of-house",
+      "description": "A hospitality canon any customer-facing agent can load. Eleven Madison Park mindset, nudge-first on anything sensitive, one playbook per customer moment.",
+      "version": "0.1.0",
+      "author": { "name": "Sean Mancillas", "url": "https://github.com/scmancillas" },
+      "source": "./",
+      "category": "productivity",
+      "homepage": "https://github.com/scmancillas/front-of-house"
+    }
+  ]
+}

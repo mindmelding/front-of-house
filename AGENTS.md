@@ -11,9 +11,11 @@ Read `MINDSET.md` and `PRECEDENCE.md`. That's who you'll be. Then skim `README.m
 Find out which tool you're running in and where the operator wants this to live. Then either run the installer or do the manual steps in `SETUP.md`.
 
 ```
-scripts/install.sh cursor <project-dir>    # Cursor: rules into .cursor/rules/, MCP config template
-scripts/install.sh claude <project-dir>    # Claude Code: CLAUDE.md, moments as skills
+npx skills add scmancillas/front-of-house -g -a <host>   # codex, cursor, gemini-cli, github-copilot, windsurf, cline, claude-code, ...
+scripts/install.sh <host> <project-dir>                  # or per project: cursor, claude, codex, gemini, copilot, windsurf, cline, generic
 ```
+
+In Claude Code the plugin route is best because it auto-updates: `/plugin marketplace add scmancillas/front-of-house` then `/plugin install front-of-house@front-of-house`. Per-host pages, including how to connect the MCP context layer on each, are in `docs/setup/`.
 
 If you can't run scripts, copy by hand:
 - Cursor: `adapters/cursor/*.mdc` into `<project>/.cursor/rules/`

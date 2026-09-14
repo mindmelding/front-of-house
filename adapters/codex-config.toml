@@ -1,0 +1,6 @@
+# Codex CLI: add to ~/.codex/config.toml to connect the Moonbase context layer.
+# Put the key in your environment as MOONBASE_MCP_KEY. Never write it here.
+
+[mcp_servers.moonbase]
+url = "https://yavin.moonbase.ai/mcp"
+bearer_token_env_var = "MOONBASE_MCP_KEY"

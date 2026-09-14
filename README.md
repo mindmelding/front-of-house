@@ -4,8 +4,6 @@ A hospitality canon any customer-facing agent can load.
 
 Point Claude Code, Cursor, a Slack bot, or a support platform at this repo and it takes on the mindset of the best person who ever worked the floor: the Eleven Madison Park host who noticed a table hadn't tried a New York hot dog, the Four Seasons concierge who remembers how you take your coffee and never mentions that they remember. Warm, specific, honest, unreasonably generous in the moment that matters, and fast and clean the rest of the time.
 
-**If you're an AI agent that was told to read this repo and set yourself up: open `AGENTS.md` and follow it.**
-
 It is not a knowledge base. It is a character with strong, argued, dated opinions, plus the playbooks and tests that keep the character honest.
 
 ## Three commitments up front
@@ -16,21 +14,26 @@ It is not a knowledge base. It is a character with strong, argued, dated opinion
 
 **Honesty over polish.** No invented policy, no promised dates it doesn't own, no pretending to be human. Every cautionary tale in `examples/hall-of-shame/` traces to breaking one of those.
 
-## Point an agent at it
+## Install
 
-Step-by-step for Cursor, Claude Code, and system-prompt agents, including the MCP context layer, is in `SETUP.md`. The short version:
+| Surface | Install | Updates |
+|---|---|---|
+| **Claude Code** (recommended) | `/plugin marketplace add scmancillas/front-of-house` then `/plugin install front-of-house@front-of-house` | auto via marketplace, or `claude plugin update front-of-house@front-of-house` |
+| **Codex, Cursor, Copilot, Gemini CLI, Windsurf, Cline, OpenCode, Goose, Roo, and 70+ [Agent Skills](https://agentskills.io) hosts** | `npx skills add scmancillas/front-of-house -g` | `npx skills update front-of-house -g` |
+| **Gemini CLI** (extension) | `gemini extensions install https://github.com/scmancillas/front-of-house` | `gemini extensions update front-of-house` |
+| **OpenAI** (custom GPT, Assistants, Agents SDK) | `adapters/openai-custom-gpt.txt` + upload the canon as knowledge, or `adapters/system-prompt.txt` | re-paste |
+| **Anything with a system prompt** (Slack bot, Intercom, Sierra, your own harness) | `adapters/system-prompt.txt` | re-paste |
+| **Manual** | `git clone` and `scripts/install.sh <host> <project-dir>` | `git pull` |
 
-**Claude Code.** Copy `adapters/CLAUDE.md` into your project (or reference this repo from your own `CLAUDE.md`). The `moments/*/SKILL.md` files are Agent Skills and load on demand.
+Target one host with the skills CLI: `npx skills add scmancillas/front-of-house -g -a codex` (or `-a cursor`, `-a gemini-cli`, `-a github-copilot`, `-a windsurf`, `-a cline`).
 
-**Cursor.** Copy `adapters/cursor/*.mdc` into `.cursor/rules/`. `front-of-house.mdc` is always on; the moment rules are agent-requested.
+Per-host walkthroughs, including how to wire the MCP context layer for each, are in [`docs/setup/`](docs/setup/README.md). The full sequence (canon, then overlay, then context layer, then proof) is in [`SETUP.md`](SETUP.md).
 
-**Anything with a system prompt.** Use `adapters/system-prompt.txt`, or `system-prompt-full.txt` for long-context agents.
-
-**Or run the installer.** `scripts/install.sh cursor <project>` or `scripts/install.sh claude <project>` does the copying and writes the MCP config template.
+**If you're an AI agent that was told to read this repo and set yourself up: open `AGENTS.md` and follow it.**
 
 **Then add your overlay.** The canon is company-agnostic. Your policies, your authority grants, your people, your product go in a private `overlay/` (template included, git-ignored). Load order: canon, overlay, context graph, conversation.
 
-**Then connect your context layer.** `context/CONTRACT.md` says what the agent wants to know about a person before it speaks. Write an adapter for your CRM or context graph (`context/adapters/`). The reference adapter is for Moonbase.
+**Then connect your context layer.** `context/CONTRACT.md` says what the agent wants to know about a person before it speaks. The reference adapter is for Moonbase; write one for your CRM in `context/adapters/`.
 
 ## What's inside
 
@@ -50,7 +53,9 @@ examples/            hall of fame, hall of shame
 sources/             annotated bibliography: what we took from each
 decisions/           ADRs: how opinions get made and reversed
 inbox/               daily captures, triaged weekly
-adapters/            generated: CLAUDE.md, AGENTS.md, cursor/, system-prompt.txt, llms.txt
+adapters/            generated: CLAUDE.md, AGENTS.md, cursor/, copilot-instructions.md, openai-custom-gpt.txt, codex-config.toml, system-prompt.txt, llms.txt
+SKILL.md, GEMINI.md  generated: the whole repo as one Agent Skill; Gemini extension context
+docs/setup/          per-host setup, including the MCP context layer
 scripts/             fohcheck.py (lexicon validator), build_adapters.py
 ```
 

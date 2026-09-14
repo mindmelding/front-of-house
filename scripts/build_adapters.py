@@ -11,6 +11,11 @@ Outputs:
   adapters/system-prompt.txt         for anything with a system prompt: mindset + guardrails + voice + lexicon + index
   adapters/system-prompt-full.txt    the whole canon, concatenated, for long-context agents
   adapters/llms.txt                  index for agents that fetch by path
+  adapters/copilot-instructions.md   GitHub Copilot: drop in as .github/copilot-instructions.md
+  adapters/openai-custom-gpt.txt     OpenAI custom GPT instructions (fits the 8,000 char limit)
+  adapters/codex-config.toml         Codex CLI MCP snippet for the context layer
+  SKILL.md (root)                    the whole repo as one Agent Skill (npx skills, Claude Code plugin)
+  GEMINI.md (root)                   Gemini CLI extension context file
 """
 import re
 import sys
@@ -192,6 +197,67 @@ def system_prompt_full():
     return "\n".join(parts)
 
 
+def skill_md():
+    """Root SKILL.md: the whole repo is one Agent Skill (npx skills, Claude Code plugin)."""
+    desc = ("Front of House: the hospitality mindset for any customer-facing work. Load before replying to, "
+            "onboarding, retaining, or delighting a customer. Reads the customer's file first, answers first, "
+            "nudges before anything sensitive, never invents policy.")
+    return (
+        "---\n"
+        "name: front-of-house\n"
+        f"description: {desc}\n"
+        "---\n\n"
+        "# Front of House\n\n"
+        "This directory is the whole canon. Paths below are relative to this file.\n\n"
+        + body("MINDSET.md").split("\n", 1)[1].strip() + "\n\n"
+        + body("PRECEDENCE.md") + "\n"
+        + body("guardrails/never.md") + "\n"
+        + loading_rules() + "\n"
+        + index_block()
+    )
+
+
+def custom_gpt():
+    """Compact instructions for OpenAI custom GPTs (8,000 character limit). The rest is uploaded as knowledge."""
+    text = (
+        "FRONT OF HOUSE (compact). The full canon is in the uploaded knowledge files; consult them by name.\n\n"
+        + body("MINDSET.md").split("\n", 1)[1].strip() + "\n\n"
+        + body("PRECEDENCE.md") + "\n"
+        + body("guardrails/never.md") + "\n"
+        + "How to use the knowledge files: read context/CONTRACT.md before replying (ask the operator for the "
+          "customer's file if you have no tools); pick one moments/<slug>/SKILL.md; draft in voice/VOICE.md; "
+          "avoid everything in voice/LEXICON.md; nudge the operator before any sensitive action per "
+          "guardrails/authority.md.\n"
+    )
+    limit = 8000
+    if len(text) > limit:
+        text = text[: limit - 60].rsplit("\n", 1)[0] + "\n\n(Truncated to the 8,000 character limit; see knowledge files.)\n"
+    return text
+
+
+def codex_toml():
+    return (
+        "# Codex CLI: add to ~/.codex/config.toml to connect the Moonbase context layer.\n"
+        "# Put the key in your environment as MOONBASE_MCP_KEY. Never write it here.\n\n"
+        "[mcp_servers.moonbase]\n"
+        'url = "https://yavin.moonbase.ai/mcp"\n'
+        'bearer_token_env_var = "MOONBASE_MCP_KEY"\n'
+    )
+
+
+def check_versions():
+    import json
+    v = (ROOT / "VERSION").read_text().strip()
+    bad = []
+    for rel in [".claude-plugin/plugin.json", "gemini-extension.json"]:
+        if json.loads((ROOT / rel).read_text())["version"] != v:
+            bad.append(rel)
+    m = json.loads((ROOT / ".claude-plugin/marketplace.json").read_text())
+    if any(pl["version"] != v for pl in m["plugins"]):
+        bad.append(".claude-plugin/marketplace.json")
+    return bad
+
+
 def llms_txt():
     lines = ["# Front of House", "", "> A hospitality canon any customer-facing agent can load. Start with MINDSET.md.", ""]
     lines.append("## Core")
@@ -210,7 +276,12 @@ def llms_txt():
 
 def build():
     files = {
+        ROOT / "SKILL.md": skill_md(),
+        ROOT / "GEMINI.md": claude_md(),
         OUT / "CLAUDE.md": claude_md(),
+        OUT / "copilot-instructions.md": claude_md(),
+        OUT / "openai-custom-gpt.txt": custom_gpt(),
+        OUT / "codex-config.toml": codex_toml(),
         OUT / "AGENTS.md": claude_md(),
         OUT / "system-prompt.txt": system_prompt(),
         OUT / "system-prompt-full.txt": system_prompt_full(),
@@ -224,6 +295,10 @@ def build():
 def main(argv):
     files = build()
     if "--check" in argv:
+        bad = check_versions()
+        if bad:
+            print("version mismatch with VERSION file:", ", ".join(bad))
+            return 1
         stale = [p for p, c in files.items() if not p.exists() or p.read_text(encoding="utf-8") != c]
         extra = [p for p in OUT.rglob("*") if p.is_file() and p not in files and p.name != "README.md"]
         if stale or extra:
