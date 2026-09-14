@@ -2,10 +2,23 @@
   "name": "front-of-house",
   "version": "0.1.0",
   "description": "A hospitality canon any customer-facing agent can load. Eleven Madison Park mindset, nudge-first on anything sensitive, one playbook per customer moment.",
-  "author": { "name": "Sean Mancillas", "url": "https://github.com/scmancillas" },
+  "author": {
+    "name": "Sean Mancillas",
+    "url": "https://github.com/scmancillas"
+  },
   "homepage": "https://github.com/scmancillas/front-of-house",
   "repository": "https://github.com/scmancillas/front-of-house",
   "license": "MIT",
-  "keywords": ["customer-experience", "customer-success", "support", "hospitality", "retention", "onboarding", "voice", "agent-skills"],
-  "skills": "./"
+  "keywords": [
+    "customer-experience",
+    "customer-success",
+    "support",
+    "hospitality",
+    "retention",
+    "onboarding",
+    "voice",
+    "agent-skills"
+  ],
+  "skills": "./",
+  "hooks": "./hooks/hooks.json"
 }

@@ -24,39 +24,31 @@ If you can't run scripts, copy by hand:
 
 ## 3. Connect the context layer, with the operator
 
-The canon expects to read the customer's file before speaking (`context/CONTRACT.md`). That file lives in a context layer reached over MCP. The reference adapter is Moonbase (`context/adapters/moonbase.md`, endpoint `https://yavin.moonbase.ai/mcp`, bearer key starting `mb_`).
+The canon expects to read the customer's file before speaking (`context/CONTRACT.md`). The file lives in a context layer reached over MCP. The reference adapter is Moonbase (`context/adapters/moonbase.md`, endpoint `https://yavin.moonbase.ai/mcp`, bearer key starting `mb_`). Per-host config is in `docs/setup/context-layer.md`.
 
 Ask the operator two things. Do not guess either.
 - "Which context layer should I connect, and can you give me the key or set it as `MOONBASE_MCP_KEY`?"
-- "Okay to write `.cursor/mcp.json` (or run `claude mcp add`) with it?"
+- "Okay to write the MCP config with it?"
 
 Never write a key into a file the operator didn't approve. Never commit a key. If they have no context layer, say so and proceed; you'll treat every conversation as a first one.
 
-## 4. Set up the overlay, with the operator
+## 4. Run the First Shift
 
-Copy `overlay/*.template.md` into `<project>/overlay/` (the installer does this). Then ask the operator to fill in, or dictate to you:
-- `authority.md`: what you may spend or touch without asking. Until they set a number, everything sensitive is a nudge.
-- `policies.md`: the written rules. If it isn't written here, it isn't policy and you escalate.
-- `people.md`: who you escalate to, for what, with timezones.
-
-Nudge before anything sensitive from this point on: personal data, money, access, deletion, anything leaving the building. The gate is in `guardrails/authority.md`.
+`python3 scripts/shift.py init --host <your host>` creates the overlay from templates. Then follow `FIRST-SHIFT.md`:
+- Read what's in motion through the context layer (nudge first; summaries only) and write `overlay/in-motion.md`.
+- Interview the operator, one question per turn, from `first-shift/questions.md`. Record each answer with `shift.py answer <key> "<text>"` and fold it into the overlay file it belongs to. Offer defaults. Accept "skip."
+- Until `overlay/authority.md` grants something, everything sensitive is a nudge: personal data, money, access, deletion, anything leaving the building. The gate is `guardrails/authority.md`.
 
 ## 5. Prove it works
 
-Ask the operator for one real customer thread. Before drafting, call the context tools and read the file. Then draft. Then check yourself:
+Ask the operator for one real customer thread. Read the file through the context tools. Draft. Self-score against `evals/rubric.md`. Run `python3 scripts/fohcheck.py` on the draft. Show the score and the reply. Whatever the operator changes becomes your first journal entry (`shift.py journal`) and, if it's a rule, the first line of `overlay/learned.md` (`shift.py learn`).
 
-- Did the first sentence answer or commit to a who and a when?
-- Did you ask anything the file already answered? (Fail.)
-- Did you invent a policy or a date? (Fail.)
-- Did you nudge before touching money, data, or access?
-- Run `python3 scripts/fohcheck.py <your-draft>`; it must be clean.
-
-Score it against `evals/rubric.md`. Show the operator the score and the reply. Fix what missed.
-
-## 6. Now behave
+## 6. Now behave, and keep getting better
 
 From here, every customer-facing interaction follows the loading rules in `adapters/CLAUDE.md`:
-read the file, pick one moment from `moments/`, draft in the voice, check the lexicon, nudge on anything sensitive, reply, write the touch note back.
+read the file, pick one moment from `moments/`, draft in the voice, check the lexicon, nudge on anything sensitive, reply, write the touch note back, journal the outcome.
+
+At the start of each session, `shift.py status --brief` (a SessionStart hook in the Claude Code plugin; run it yourself elsewhere) says whether a two-minute pre-shift is warranted. When it is, offer it and follow `first-shift/self-improvement.md`: distill the journal into learned rules with the operator, refresh the in-motion read, retire stale rules. Everything learned stays local in the overlay.
 
 ## If you're here to contribute, not to install
 

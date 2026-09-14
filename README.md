@@ -56,7 +56,10 @@ inbox/               daily captures, triaged weekly
 adapters/            generated: CLAUDE.md, AGENTS.md, cursor/, copilot-instructions.md, openai-custom-gpt.txt, codex-config.toml, system-prompt.txt, llms.txt
 SKILL.md, GEMINI.md  generated: the whole repo as one Agent Skill; Gemini extension context
 docs/setup/          per-host setup, including the MCP context layer
-scripts/             fohcheck.py (lexicon validator), build_adapters.py
+scripts/             fohcheck.py (lexicon validator), build_adapters.py, shift.py (first shift + journal), install.sh
+FIRST-SHIFT.md       onboarding for the agent itself: in-motion read, interview, proof, then the local improvement loop
+first-shift/         questions, the in-motion read, the self-improvement loop
+hooks/               Claude Code plugin hook: SessionStart runs shift.py status
 ```
 
 ## Check a draft
@@ -66,6 +69,16 @@ python3 scripts/fohcheck.py reply.md
 ```
 
 Reads the banned lists from `voice/LEXICON.md`, the same file the prompt loads, so the prompt and the linter can't drift. If it fails, rewrite from source. Don't patch the draft; paraphrasing a bad draft keeps its cadence.
+
+## The First Shift, and getting better on the job
+
+Setup is an onboarding, not a config file. `FIRST-SHIFT.md` runs once:
+
+1. **Read what's in motion.** Through the context layer, summaries only: what we owe, who's onboarding, who went quiet, what's hot. Written to `overlay/in-motion.md`, refreshed weekly.
+2. **The interview.** Seventeen questions, one per turn, defaults offered, every answer saved as it lands (`first-shift/questions.md`). Your own best replies become the exemplars. Authority ceilings, escalation people, and policies land in the overlay.
+3. **Proof.** One real thread, scored against the rubric, and whatever you change becomes the first lesson.
+
+Then the local loop (`first-shift/self-improvement.md`): every draft you approve, edit, or reject gets a one-line journal entry; your edits are the ground truth. When five have piled up, the agent offers a two-minute pre-shift and proposes rules, one line each, that go into `overlay/learned.md` with evidence counts and a ninety-day expiry. Capped at thirty. Nothing leaves your machine; the canon stays public and company-agnostic. `scripts/shift.py` does the bookkeeping, and the Claude Code plugin ships a SessionStart hook that reports when a pre-shift is due.
 
 ## How it stays alive
 

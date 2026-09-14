@@ -63,9 +63,5 @@ case "$TOOL" in
     ;;
   *) echo "unknown tool: $TOOL (cursor|claude|codex|gemini|copilot|windsurf|cline|generic)"; exit 2 ;;
 esac
-mkdir -p "$TARGET/overlay"
-for t in "$HERE"/overlay/*.template.md; do
-  dest="$TARGET/overlay/$(basename "${t%.template.md}").md"
-  [[ -f "$dest" ]] || cp "$t" "$dest"
-done
-echo "overlay templates in $TARGET/overlay/ (fill these in; they never go in the canon)"
+( cd "$TARGET" && FOH_OVERLAY="$TARGET/overlay" python3 "$HERE/scripts/shift.py" init --host "$TOOL" >/dev/null )
+echo "overlay initialized at $TARGET/overlay/ (never goes in the canon). Next: tell the agent to read FIRST-SHIFT.md and run it."
