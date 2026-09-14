@@ -1,5 +1,5 @@
 ---
-description: Load when usage dropped or stopped, imports or logins went quiet for 30 days, or a formerly responsive person has stopped replying.
+description: "Load when usage dropped or stopped, imports or logins went quiet for 30 days, or a formerly responsive person has stopped replying."
 globs:
 alwaysApply: false
 ---

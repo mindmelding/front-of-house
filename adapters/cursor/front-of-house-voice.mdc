@@ -1,5 +1,5 @@
 ---
-description: Front of House voice and lexicon. Load when drafting anything a customer will read.
+description: "Front of House voice and lexicon. Load when drafting anything a customer will read."
 globs:
 alwaysApply: false
 ---

@@ -1,5 +1,5 @@
 ---
-description: Load when a customer reports that something is broken, wrong, or not doing what it should.
+description: "Load when a customer reports that something is broken, wrong, or not doing what it should."
 globs:
 alwaysApply: false
 ---

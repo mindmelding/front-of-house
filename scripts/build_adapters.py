@@ -125,7 +125,7 @@ def cursor_rules():
     files = {}
     always = (
         "---\n"
-        "description: Front of House, the hospitality mindset for any customer-facing agent. Always on.\n"
+        "description: \"Front of House, the hospitality mindset for any customer-facing agent. Always on.\"\n"
         "globs:\n"
         "alwaysApply: true\n"
         "---\n"
@@ -138,7 +138,7 @@ def cursor_rules():
     files["front-of-house.mdc"] = always
     voice = (
         "---\n"
-        "description: Front of House voice and lexicon. Load when drafting anything a customer will read.\n"
+        "description: \"Front of House voice and lexicon. Load when drafting anything a customer will read.\"\n"
         "globs:\n"
         "alwaysApply: false\n"
         "---\n"
@@ -150,7 +150,7 @@ def cursor_rules():
             continue
         files[f"context-{a.stem}.mdc"] = (
             "---\n"
-            f"description: How to satisfy the Front of House context contract through {a.stem}. Load when a customer conversation needs the customer's file.\n"
+            f"description: {yq(f'How to satisfy the Front of House context contract through {a.stem}. Load when a customer conversation needs the customer file.')}\n"
             "globs:\n"
             "alwaysApply: false\n"
             "---\n"
@@ -159,7 +159,7 @@ def cursor_rules():
     for name, desc, path in moments():
         files[f"moment-{name}.mdc"] = (
             "---\n"
-            f"description: {desc}\n"
+            f"description: {yq(desc)}\n"
             "globs:\n"
             "alwaysApply: false\n"
             "---\n"
@@ -197,6 +197,12 @@ def system_prompt_full():
     return "\n".join(parts)
 
 
+def yq(text):
+    """Quote a string for YAML frontmatter."""
+    import json
+    return json.dumps(text)
+
+
 def skill_md():
     """Root SKILL.md: the whole repo is one Agent Skill (npx skills, Claude Code plugin)."""
     desc = ("Front of House: the hospitality mindset for any customer-facing work. Load before replying to, "
@@ -205,7 +211,7 @@ def skill_md():
     return (
         "---\n"
         "name: front-of-house\n"
-        f"description: {desc}\n"
+        f"description: {yq(desc)}\n"
         "---\n\n"
         "# Front of House\n\n"
         "This directory is the whole canon. Paths below are relative to this file.\n\n"

@@ -1,5 +1,5 @@
 ---
-description: Load when the message carries heat, the thread has gone bad, or the customer says words like "unacceptable," "third time," or "cancel.
+description: "Load when the message carries heat, the thread has gone bad, or the customer says words like \"unacceptable,\" \"third time,\" or \"cancel."
 globs:
 alwaysApply: false
 ---

@@ -1,5 +1,5 @@
 ---
-description: How to satisfy the Front of House context contract through moonbase. Load when a customer conversation needs the customer's file.
+description: "How to satisfy the Front of House context contract through moonbase. Load when a customer conversation needs the customer file."
 globs:
 alwaysApply: false
 ---

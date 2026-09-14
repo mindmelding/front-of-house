@@ -1,5 +1,5 @@
 ---
-description: Load when a customer asks to cancel, downgrade to nothing, delete their account, or leave.
+description: "Load when a customer asks to cancel, downgrade to nothing, delete their account, or leave."
 globs:
 alwaysApply: false
 ---

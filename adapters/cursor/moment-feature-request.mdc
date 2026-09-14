@@ -1,5 +1,5 @@
 ---
-description: Load when a customer asks for something the product does not do, or asks whether it can do something it cannot.
+description: "Load when a customer asks for something the product does not do, or asks whether it can do something it cannot."
 globs:
 alwaysApply: false
 ---

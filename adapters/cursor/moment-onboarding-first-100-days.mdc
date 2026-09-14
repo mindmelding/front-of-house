@@ -1,5 +1,5 @@
 ---
-description: Load for any interaction with an account or user inside their first 100 days, or one who has not yet reached the desired outcome they stated at signup.
+description: "Load for any interaction with an account or user inside their first 100 days, or one who has not yet reached the desired outcome they stated at signup."
 globs:
 alwaysApply: false
 ---

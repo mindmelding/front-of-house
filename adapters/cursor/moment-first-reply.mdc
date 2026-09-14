@@ -1,5 +1,5 @@
 ---
-description: Load when replying to a person we have never spoken to before, in any channel.
+description: "Load when replying to a person we have never spoken to before, in any channel."
 globs:
 alwaysApply: false
 ---

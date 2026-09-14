@@ -1,5 +1,5 @@
 ---
-description: Load when the customer is having a hard time that isn't about us: layoffs, a champion who left, an exec departure, or personal news they raised with us directly.
+description: "Load when the customer is having a hard time that isn't about us: layoffs, a champion who left, an exec departure, or personal news they raised with us directly."
 globs:
 alwaysApply: false
 ---

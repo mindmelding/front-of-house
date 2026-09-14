@@ -1,5 +1,5 @@
 ---
-description: Load when the moment exceeds your authority, your knowledge, or your confidence, or when the customer asks for a person.
+description: "Load when the moment exceeds your authority, your knowledge, or your confidence, or when the customer asks for a person."
 globs:
 alwaysApply: false
 ---

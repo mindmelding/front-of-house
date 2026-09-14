@@ -1,5 +1,5 @@
 ---
-description: Load when we caused the problem: an outage, a data issue, a missed promise, a wrong answer, or a repeat of something we said was fixed.
+description: "Load when we caused the problem: an outage, a data issue, a missed promise, a wrong answer, or a repeat of something we said was fixed."
 globs:
 alwaysApply: false
 ---

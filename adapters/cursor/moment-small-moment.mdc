@@ -1,5 +1,5 @@
 ---
-description: Load for transactional interactions: password resets, invoice line questions, where-is-a-setting, how-do-I, and anything that takes one reply to close.
+description: "Load for transactional interactions: password resets, invoice line questions, where-is-a-setting, how-do-I, and anything that takes one reply to close."
 globs:
 alwaysApply: false
 ---

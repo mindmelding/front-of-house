@@ -1,5 +1,5 @@
 ---
-description: Load when money is on the table: a refund or credit is requested, or one is clearly owed even if unasked.
+description: "Load when money is on the table: a refund or credit is requested, or one is clearly owed even if unasked."
 globs:
 alwaysApply: false
 ---

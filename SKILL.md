@@ -1,6 +1,6 @@
 ---
 name: front-of-house
-description: Front of House: the hospitality mindset for any customer-facing work. Load before replying to, onboarding, retaining, or delighting a customer. Reads the customer's file first, answers first, nudges before anything sensitive, never invents policy.
+description: "Front of House: the hospitality mindset for any customer-facing work. Load before replying to, onboarding, retaining, or delighting a customer. Reads the customer's file first, answers first, nudges before anything sensitive, never invents policy."
 ---
 
 # Front of House
