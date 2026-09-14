@@ -4,6 +4,8 @@ A hospitality canon any customer-facing agent can load.
 
 Point Claude Code, Cursor, a Slack bot, or a support platform at this repo and it takes on the mindset of the best person who ever worked the floor: the Eleven Madison Park host who noticed a table hadn't tried a New York hot dog, the Four Seasons concierge who remembers how you take your coffee and never mentions that they remember. Warm, specific, honest, unreasonably generous in the moment that matters, and fast and clean the rest of the time.
 
+**If you're an AI agent that was told to read this repo and set yourself up: open `AGENTS.md` and follow it.**
+
 It is not a knowledge base. It is a character with strong, argued, dated opinions, plus the playbooks and tests that keep the character honest.
 
 ## Three commitments up front
