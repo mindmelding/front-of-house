@@ -12,7 +12,7 @@ or copy the generated rules directly:
 scripts/install.sh cursor /path/to/project
 ```
 
-That puts 15 rules in `.cursor/rules/`: `front-of-house.mdc` (always on), `front-of-house-voice.mdc`, `context-moonbase.mdc`, and one `moment-*.mdc` per playbook, all agent-requested by description. Invoke one by name with `@moment-angry-customer`.
+That puts 15 rules in `.cursor/rules/` and stamps the canon's absolute path into the always-on rule so the agent can find `scripts/shift.py` and `FIRST-SHIFT.md` from your project. The rules are: `front-of-house.mdc` (always on), `front-of-house-voice.mdc`, `context-moonbase.mdc`, and one `moment-*.mdc` per playbook, all agent-requested by description. Invoke one by name with `@moment-angry-customer`.
 
 **Context layer:** `.cursor/mcp.json` (template in `overlay/mcp.template.json`):
 
@@ -29,7 +29,11 @@ That puts 15 rules in `.cursor/rules/`: `front-of-house.mdc` (always on), `front
 
 Restart Cursor and confirm the four Moonbase tools appear under Settings, MCP.
 
-**Overlay:** `overlay/` in the project; add `Overlay: read ./overlay/*.md before replying.` to the top of `front-of-house.mdc`.
+**Overlay:** the installer creates `overlay/` in the project and points the always-on rule at it. If you used `npx skills` instead, add `Overlay: read ./overlay/*.md before replying.` to the top of `front-of-house.mdc`.
+
+**Already have a Moonbase server in `~/.cursor/mcp.json`?** Delete the project-level `.cursor/mcp.json` the installer wrote; the tool names are the same whatever the server is called.
+
+**Test it:** open the project in Cursor, start a new Agent chat, and say `read FIRST-SHIFT.md and run it`. It should nudge you before reading Moonbase, then ask the first interview question and wait.
 
 **Proof:** "Using Front of House, reply to this message from Dana. Read her file first." It must call the context tools before drafting.
 

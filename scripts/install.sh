@@ -8,10 +8,32 @@ HERE="$(cd "$(dirname "$0")/.." && pwd)"
 TOOL="${1:-}"; TARGET="${2:-}"
 if [[ -z "$TOOL" || -z "$TARGET" ]]; then echo "usage: $0 <cursor|claude|codex|gemini|copilot|windsurf|cline|generic> <project-dir>"; exit 2; fi
 mkdir -p "$TARGET"
+# Insert a "where the canon lives" block right after the frontmatter of a rules file,
+# so relative paths in the rules (scripts/, FIRST-SHIFT.md, moments/) resolve for the agent.
+stamp_canon() {
+  local f="$1"
+  python3 - "$f" "$HERE" "$TARGET" <<'PY'
+import sys
+f, canon, target = sys.argv[1:4]
+s = open(f).read()
+block = (f"**Where things live.** The Front of House canon is at `{canon}`. Every relative path in these rules "
+         f"(`scripts/shift.py`, `FIRST-SHIFT.md`, `moments/`, `guardrails/`, `first-shift/`) resolves there. "
+         f"The private overlay for this project is `{target}/overlay/`; run shift.py from this project root so it finds it. "
+         f"First message of a new session: run `python3 {canon}/scripts/shift.py status --brief` and act on it.\n\n")
+if "**Where things live.**" in s: sys.exit(0)
+if s.startswith("---"):
+    end = s.index("\n---", 3) + 4
+    s = s[:end] + "\n" + block + s[end:].lstrip("\n")
+else:
+    s = block + s
+open(f, "w").write(s)
+PY
+}
 case "$TOOL" in
   cursor)
     mkdir -p "$TARGET/.cursor/rules"
     cp "$HERE"/adapters/cursor/*.mdc "$TARGET/.cursor/rules/"
+    stamp_canon "$TARGET/.cursor/rules/front-of-house.mdc"
     if [[ ! -f "$TARGET/.cursor/mcp.json" ]]; then
       cp "$HERE/overlay/mcp.template.json" "$TARGET/.cursor/mcp.json"
       echo "wrote $TARGET/.cursor/mcp.json (set MOONBASE_MCP_KEY in your environment, or edit the file)"
@@ -52,11 +74,11 @@ case "$TOOL" in
     ;;
   windsurf)
     mkdir -p "$TARGET/.windsurf/rules"
-    cp "$HERE/adapters/CLAUDE.md" "$TARGET/.windsurf/rules/front-of-house.md"; echo "wrote $TARGET/.windsurf/rules/front-of-house.md"
+    cp "$HERE/adapters/CLAUDE.md" "$TARGET/.windsurf/rules/front-of-house.md"; stamp_canon "$TARGET/.windsurf/rules/front-of-house.md"; echo "wrote $TARGET/.windsurf/rules/front-of-house.md"
     ;;
   cline)
     mkdir -p "$TARGET/.clinerules"
-    cp "$HERE/adapters/CLAUDE.md" "$TARGET/.clinerules/front-of-house.md"; echo "wrote $TARGET/.clinerules/front-of-house.md"
+    cp "$HERE/adapters/CLAUDE.md" "$TARGET/.clinerules/front-of-house.md"; stamp_canon "$TARGET/.clinerules/front-of-house.md"; echo "wrote $TARGET/.clinerules/front-of-house.md"
     ;;
   generic)
     cp "$HERE/adapters/system-prompt.txt" "$TARGET/front-of-house.system-prompt.txt"; echo "wrote $TARGET/front-of-house.system-prompt.txt (paste as the system prompt, append your overlay)"
