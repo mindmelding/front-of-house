@@ -19,7 +19,7 @@ In Claude Code the plugin route is best because it auto-updates: `/plugin market
 
 If you can't run scripts, copy by hand:
 - Cursor: `adapters/cursor/*.mdc` into `<project>/.cursor/rules/`
-- Claude Code: `adapters/CLAUDE.md` into `<project>/CLAUDE.md`, and link `moments/*` into `<project>/.claude/skills/`
+- Claude Code: `adapters/CLAUDE.md` into `<project>/CLAUDE.md`, and symlink this repo to `<project>/.claude/skills/front-of-house`
 - Anything else: `adapters/system-prompt.txt` as the system prompt
 
 ## 3. Connect the context layer, with the operator

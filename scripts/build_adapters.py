@@ -55,7 +55,7 @@ def frontmatter(rel):
 def moments():
     items = []
     for d in sorted((ROOT / "moments").iterdir()):
-        s = d / "SKILL.md"
+        s = d / "PLAYBOOK.md"
         if s.exists():
             fm = frontmatter(s.relative_to(ROOT).as_posix())
             items.append((d.name, fm.get("description", ""), s.relative_to(ROOT).as_posix()))
@@ -225,7 +225,7 @@ def custom_gpt():
         + body("PRECEDENCE.md") + "\n"
         + body("guardrails/never.md") + "\n"
         + "How to use the knowledge files: read context/CONTRACT.md before replying (ask the operator for the "
-          "customer's file if you have no tools); pick one moments/<slug>/SKILL.md; draft in voice/VOICE.md; "
+          "customer's file if you have no tools); pick one moments/<slug>/PLAYBOOK.md; draft in voice/VOICE.md; "
           "avoid everything in voice/LEXICON.md; nudge the operator before any sensitive action per "
           "guardrails/authority.md.\n"
     )

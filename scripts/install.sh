@@ -29,10 +29,8 @@ case "$TOOL" in
       cp "$HERE/adapters/CLAUDE.md" "$TARGET/CLAUDE.md"
       echo "wrote $TARGET/CLAUDE.md"
     fi
-    for d in "$HERE"/moments/*/; do
-      n="$(basename "$d")"; ln -sfn "$d" "$TARGET/.claude/skills/foh-$n"
-    done
-    echo "linked $(ls -d "$HERE"/moments/*/ | wc -l | tr -d ' ') moment skills into $TARGET/.claude/skills/"
+    ln -sfn "$HERE" "$TARGET/.claude/skills/front-of-house"
+    echo "linked the canon as one skill at $TARGET/.claude/skills/front-of-house (playbooks load on demand from inside it)"
     echo "context layer: claude mcp add --transport http moonbase https://yavin.moonbase.ai/mcp --header \"Authorization: Bearer \$MOONBASE_MCP_KEY\""
     ;;
   codex)

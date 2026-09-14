@@ -451,18 +451,18 @@ Notes on the patterns, in order: the "not X, it's Y" construction; same, shorter
 
 ### Moments (one playbook per situation)
 
-- `moments/angry-customer/SKILL.md`: Load when the message carries heat, the thread has gone bad, or the customer says words like "unacceptable," "third time," or "cancel.
-- `moments/bug-report/SKILL.md`: Load when a customer reports that something is broken, wrong, or not doing what it should.
-- `moments/cancellation-and-offboarding/SKILL.md`: Load when a customer asks to cancel, downgrade to nothing, delete their account, or leave.
-- `moments/feature-request/SKILL.md`: Load when a customer asks for something the product does not do, or asks whether it can do something it cannot.
-- `moments/first-reply/SKILL.md`: Load when replying to a person we have never spoken to before, in any channel.
-- `moments/handoff-to-human/SKILL.md`: Load when the moment exceeds your authority, your knowledge, or your confidence, or when the customer asks for a person.
-- `moments/onboarding-first-100-days/SKILL.md`: Load for any interaction with an account or user inside their first 100 days, or one who has not yet reached the desired outcome they stated at signup.
-- `moments/our-mistake/SKILL.md`: Load when we caused the problem: an outage, a data issue, a missed promise, a wrong answer, or a repeat of something we said was fixed.
-- `moments/refund-or-credit/SKILL.md`: Load when money is on the table: a refund or credit is requested, or one is clearly owed even if unasked.
-- `moments/silence/SKILL.md`: Load when usage dropped or stopped, imports or logins went quiet for 30 days, or a formerly responsive person has stopped replying.
-- `moments/small-moment/SKILL.md`: Load for transactional interactions: password resets, invoice line questions, where-is-a-setting, how-do-I, and anything that takes one reply to close.
-- `moments/their-bad-day/SKILL.md`: Load when the customer is having a hard time that isn't about us: layoffs, a champion who left, an exec departure, or personal news they raised with us directly.
+- `moments/angry-customer/PLAYBOOK.md`: Load when the message carries heat, the thread has gone bad, or the customer says words like "unacceptable," "third time," or "cancel.
+- `moments/bug-report/PLAYBOOK.md`: Load when a customer reports that something is broken, wrong, or not doing what it should.
+- `moments/cancellation-and-offboarding/PLAYBOOK.md`: Load when a customer asks to cancel, downgrade to nothing, delete their account, or leave.
+- `moments/feature-request/PLAYBOOK.md`: Load when a customer asks for something the product does not do, or asks whether it can do something it cannot.
+- `moments/first-reply/PLAYBOOK.md`: Load when replying to a person we have never spoken to before, in any channel.
+- `moments/handoff-to-human/PLAYBOOK.md`: Load when the moment exceeds your authority, your knowledge, or your confidence, or when the customer asks for a person.
+- `moments/onboarding-first-100-days/PLAYBOOK.md`: Load for any interaction with an account or user inside their first 100 days, or one who has not yet reached the desired outcome they stated at signup.
+- `moments/our-mistake/PLAYBOOK.md`: Load when we caused the problem: an outage, a data issue, a missed promise, a wrong answer, or a repeat of something we said was fixed.
+- `moments/refund-or-credit/PLAYBOOK.md`: Load when money is on the table: a refund or credit is requested, or one is clearly owed even if unasked.
+- `moments/silence/PLAYBOOK.md`: Load when usage dropped or stopped, imports or logins went quiet for 30 days, or a formerly responsive person has stopped replying.
+- `moments/small-moment/PLAYBOOK.md`: Load for transactional interactions: password resets, invoice line questions, where-is-a-setting, how-do-I, and anything that takes one reply to close.
+- `moments/their-bad-day/PLAYBOOK.md`: Load when the customer is having a hard time that isn't about us: layoffs, a champion who left, an exec departure, or personal news they raised with us directly.
 
 ### Principles
 

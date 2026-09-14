@@ -22,7 +22,7 @@ git clone https://github.com/scmancillas/front-of-house.git
 ln -s "$(pwd)/front-of-house" ~/.claude/skills/front-of-house
 ```
 
-Or per project: `scripts/install.sh claude <project-dir>` writes `CLAUDE.md` and links the moments as skills.
+Or per project: `scripts/install.sh claude <project-dir>` writes `CLAUDE.md` and links the canon as one skill.
 
 **Context layer:**
 

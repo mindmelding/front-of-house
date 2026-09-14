@@ -42,7 +42,7 @@ Anyone and anything. A human after a good or bad thread. An automation that scor
 Thirty minutes, one person, once a week. The name comes from the daily pre-shift meeting in restaurants. Read the week's inbox files and, for each entry, do one of:
 
 1. Promote to a principle (new file in `principles/`, or an edit with a changed `last_reviewed`).
-2. Promote to a playbook (`moments/<slug>/SKILL.md`, new or edited).
+2. Promote to a playbook (`moments/<slug>/PLAYBOOK.md`, new or edited).
 3. Promote to an exemplar (`voice/EXEMPLARS.md`).
 4. Promote to a legend (`delight/legends/`).
 5. Promote to an eval case (`evals/cases/`). Every "Missed" entry should become one.

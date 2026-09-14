@@ -7,7 +7,7 @@ last_reviewed: 2026-09-14
 
 # Moments
 
-The customer lifecycle as a taxonomy of moments. Each moment has one playbook in Agent Skills format (`<slug>/SKILL.md`). A playbook tells you what the best person on the floor does in that moment, what an ordinary company does, the steps, the guardrails, and the 5% move.
+The customer lifecycle as a taxonomy of moments. Each moment has one playbook in Agent Skills format (`<slug>/PLAYBOOK.md`). A playbook tells you what the best person on the floor does in that moment, what an ordinary company does, the steps, the guardrails, and the 5% move.
 
 ## How to pick a playbook
 
