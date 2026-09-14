@@ -1,0 +1,6 @@
+overlay/*
+!overlay/README.md
+!overlay/*.template.md
+inbox/*.local.md
+.DS_Store
+__pycache__/
