@@ -1,0 +1,27 @@
+name: canon
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Lexicon check (the canon eats its own cooking)
+        run: python3 scripts/fohcheck.py --repo
+      - name: Adapters are fresh
+        run: python3 scripts/build_adapters.py --check
+      - name: Every moment has an eval
+        run: |
+          missing=0
+          for d in moments/*/; do
+            m=$(basename "$d")
+            if ! grep -rl "^moment: $m" evals/cases/ >/dev/null 2>&1; then
+              echo "no eval case for moment: $m"; missing=1
+            fi
+          done
+          exit $missing
