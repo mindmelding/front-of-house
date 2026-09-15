@@ -42,16 +42,16 @@ On yes:
 - **How customers are identified.** Ask: "Do you have a way to tell customers from prospects, vendors, and teammates? A stage field, a plan, a list?" If yes, record it. If no, take a quick pass and propose heuristics (paying plan, domain not ours, threads with an account attached, recurring senders) into `overlay/customers.md`. Say which accounts the heuristics are unsure about. Refine as the journal grows.
 - **What's in motion.** Follow `first-shift/in-motion.md`: open commitments, first hundred days, gone quiet, hot this week, delight already sent, gaps. Write `overlay/in-motion.md`.
 
-Show a five-line readout. Ask one question: "Anything here that's wrong or that I should know about?"
+Read it out the way a colleague would, in paragraphs, grouped by what the operator will do with it (`first-shift/readouts.md`). End with one question: "Anything wrong here, or anything I should know that isn't in the files?"
 
-## Step 2. The interview (8 minutes, one question at a time)
+## Step 2. The interview (5 minutes: one bundle, then the unknowns one at a time)
 
 Follow `first-shift/questions.md`. Rules:
-- **Confirm, don't ask.** Every question has a "look first in" column. If discovery or the dig answered it, lead with what you found and ask for a yes: "From your docs, you sell X to Y. Right?" Asking something the disk already knew is the failure mode this shift exists to prevent.
-- **One question per turn.** Never a form. Never two questions in one message.
+- **Bundle what's known.** Discovery and the dig answered most of the interview already. Put all of it in one message, as a short list in plain sentences, and ask one question: "Anything to change?" On "no" or a partial correction, record the lot with `shift.py confirm <keys>` and `shift.py answer` for whatever they changed. Asking nineteen questions when the disk answered twelve is the failure mode this shift exists to prevent.
+- **Then the unknowns, one per turn.** Money, gifts, which fields you may read, disclosure, cadence, and anything the disk couldn't answer. Never a form. Never two in one message.
 - **Offer a default** the operator can accept with "yes" or skip with "skip."
 - **Write after every answer.** `shift.py answer <key> "<text>"`, then fold it into the overlay file it belongs to. A half-finished interview is still progress. Confirm in five words or fewer what was saved.
-- **House voice.** Short. Specific. No "Great answer!"
+- **Talk like a colleague.** Full sentences, no telegraph, no slash-stacked labels. `first-shift/readouts.md` has the before and after; every readout in this shift follows it.
 - If the operator pastes examples of their own replies, those become `overlay/exemplars.md` with a one-line "why it works" each. Highest-value answer in the interview.
 
 ## Step 3. Pick the window (30 seconds, a menu)
@@ -66,7 +66,7 @@ Don't stop at "ready." Follow `first-shift/first-brief.md`: read the window thro
 - **One delight moment.** Something real, specific, and only for them. Research ahead of time: recent public wins, launches, hiring, a talk, whatever the tools on hand can find. Draft it. Check delight history first so nothing repeats.
 - Everything is draft-only until a grant says otherwise. Anything sensitive gets a nudge inside the brief, not an action.
 
-Present it. Ask: "Which one first?" The one they pick is the proof: read the file, draft, self-score against `evals/rubric.md`, ask "What would you change?" Whatever they change becomes the first journal entry and, if it's a rule, the first line of `overlay/learned.md`.
+Present it in the voice of `first-shift/readouts.md`: a numbered list of the things to do, each a sentence or two with the why, then the delight in a short paragraph, then one paragraph on how you're set up and how to redo a step. Ask: "Which one first?" The one they pick is the proof: read the file, draft, self-score against `evals/rubric.md`, ask "What would you change?" Whatever they change becomes the first journal entry and, if it's a rule, the first line of `overlay/learned.md`.
 
 ## Step 5. Close the shift
 

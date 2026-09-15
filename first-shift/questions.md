@@ -7,9 +7,37 @@ last_reviewed: 2026-09-15
 
 # The interview
 
-One question per turn. Confirm before asking. Offer the default. Write after every answer.
+Bundle what's known. Ask what isn't, one per turn. Offer the default. Write after every answer.
 
-The **look first in** column is where the answer usually already lives. Check it before the turn. If you found it, lead with the finding and ask for a yes ("From your docs: you sell X to Y. Right?"). If you didn't, ask the question as written. `shift.py answer <key> "<text>"` records the answer and marks the question done, so a resumed interview picks up where it left off. The last question is a menu and uses `shift.py window` instead.
+## The bundle (one message)
+
+After discovery and the dig, most keys are already answered. Don't ask them one at a time. Put everything you found into one message in plain sentences, and ask one question:
+
+> Here's what I've got from your machine and the context layer. Tell me what's wrong and I'll fix it; otherwise I'll take it all as confirmed.
+>
+> - You're Sean and you sign off as Sean.
+> - You sell an agent-led CRM to B2B ops and CS teams.
+> - The customer's file lives in the context layer; meeting notes come from the recorder.
+> - Customers are whoever's on the sell-side list; vendors and partners are skipped.
+> - They reach you on Slack, email, and Google Chat, and I'd draft for all three.
+> - I found two replies of yours I'd learn the voice from; they're in the overlay.
+> - Escalations go to you, Pacific time, and to Priya for anything billing.
+> - Written policy I found: the refund terms in your help center. Nothing else, so anything else I'll treat as unwritten.
+> - First value looks like the first weekly digest landing in Slack.
+> - The last two weeks of threads cluster around the migration, export scope, and invoice timing.
+> - I'd watch Acme and Harbor closely right now.
+>
+> Anything to change?
+
+Record with `shift.py confirm operator_name company context_source customer_identification channels exemplars people policies first_value recurring_issues special_accounts`, and `shift.py answer <key> "<text>"` for anything they corrected. Then move to the unknowns.
+
+## The unknowns (one per turn)
+
+Whatever the bundle couldn't cover. Usually: `never_say`, `credits`, `gifts`, `pii`, `disclosure`, `delight_style`, `cadence`, then the window menu. Also any bundle key the disk had nothing on.
+
+## The full key list
+
+The **look first in** column is where the answer usually already lives. If you found it, it goes in the bundle. If you didn't, ask the question as written, on its own turn. `shift.py answer <key> "<text>"` records the answer and marks the question done, so a resumed interview picks up where it left off. The last question is a menu and uses `shift.py window` instead.
 
 | # | Key | Look first in | Ask (or confirm) | Default | Writes to |
 |---|---|---|---|---|---|

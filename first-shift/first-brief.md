@@ -45,28 +45,24 @@ Exactly one. `delight/catalog.md` lists the triggers; `delight/PHILOSOPHY.md` sa
 
 ## Output
 
-Present in the chat, and save to `overlay/briefs/YYYY-MM-DD.md` (never in the canon):
+Present it in the chat in the voice of `first-shift/readouts.md` (the "after" version there is the model), and save the same text to `overlay/briefs/YYYY-MM-DD.md` (never in the canon). The shape:
 
-```markdown
-# Brief, 2026-09-15, window last 14 days
+> Here's what I'd do first, in order.
+>
+> 1. **Acme, Priya.** The root cause on the webhook failures was due on the 12th and nobody wrote. Draft below; it's an our-mistake reply. One thing to know: the fix needs a credit above your ceiling, so I'll ask before that part.
+> 2. **Northwind, Dana.** Day twelve and no import yet. The kickoff notes say she wanted a weekly report by the 30th, so the draft offers to set that up for her.
+> 3. **Beacon, Marcus.** Third password reset this quarter. The SSO redirect looks like the cause, so the draft does the reset and offers the two-minute fix.
+>
+> On the delight: Riverline shipped their public API on Tuesday, per their changelog, and Jo mentioned wanting the quiet-accounts digest on the August 28 call. The draft congratulates them and hands over the digest, built. Costs nothing.
+>
+> Worth a look but not drafted: Harbor may have raised; I couldn't confirm it.
+>
+> Drafts follow, one per item, with the channel and the moment labelled.
+>
+> Which one first?
 
-## Do first
-1. Acme, Priya: root cause on the webhook failures was due 09-12, nobody wrote. Draft below (our-mistake). Nudge: the fix needs a credit above your ceiling.
-2. Northwind, Dana: day 12, no import yet, kickoff notes say "weekly report by the 30th". Draft below (onboarding).
-3. Beacon, Marcus: third password reset this quarter, SSO redirect looks like the cause. Draft below (small-moment).
-
-## Delight
-Riverline, Jo: shipped their public API Tuesday (their changelog, 09-09). They mentioned wanting the quiet-accounts digest in the 08-28 call. Draft below: congratulations plus the digest, built. Cost: free.
-
-## Drafts
-...one per item, channel and moment labelled...
-
-## Worth a look, not drafted
-- Harbor: possible funding news, unconfirmed.
-```
-
-Then ask one question: "Which one first?" That reply is the proof thread for the First Shift, and the journal entry that starts the local loop.
+That reply is the proof thread for the First Shift, and the journal entry that starts the local loop.
 
 ## What the brief never does
 
-Never sends. Never acts on a nudge item. Never invents a milestone, a number, or a policy to make an item look better. Never pads to five when there are two. Never buries the overdue promise under the delight.
+Never sends. Never acts on a nudge item. Never invents a milestone, a number, or a policy to make an item look better. Never pads to five when there are two. Never buries the overdue promise under the delight. Never reads like a status board; if it can't be said aloud to a colleague, rewrite it.

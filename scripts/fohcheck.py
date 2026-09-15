@@ -22,6 +22,7 @@ LEXICON = ROOT / "voice" / "LEXICON.md"
 REPO_SKIP_FILES = {
     "voice/LEXICON.md",
     "voice/ai-tells.md",
+    "first-shift/readouts.md",  # its "before" examples are deliberately bad,
 }
 REPO_SKIP_DIRS = ("examples/hall-of-shame", "adapters", ".git", "inbox", "node_modules")
 # Headings whose section (until the next heading) is intentionally allowed to contain banned language.

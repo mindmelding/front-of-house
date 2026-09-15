@@ -6,6 +6,7 @@
   shift.py discover                inventory local connectors and context files; write overlay/discovery.md
   shift.py window <7|14|30|YYYY-MM-DD..YYYY-MM-DD>   record the review window the operator chose
   shift.py answer <key> "<text>"   record an interview answer (marks the question done)
+  shift.py confirm <key> [<key>...] [--note "..."]   mark keys confirmed from discovery in one go (the bundle)
   shift.py journal --moment M --channel C --outcome O --score N --lesson "..." [--diff "..."]
   shift.py distill                 print journal entries since the last distill, grouped; records the marker
   shift.py learn "<rule>" --moment M --evidence N     add a learned rule (expires in 90 days)
@@ -184,6 +185,31 @@ def cmd_answer(a):
         st["setup"] = "complete"
     write_state(o, st)
     print(f"saved {a.key} ({len(st['answered'])}/{len(keys)})")
+    return 0
+
+
+def cmd_confirm(a):
+    """The bundle: everything discovery already answered, confirmed by the operator in one message."""
+    o = overlay_dir()
+    st = read_state(o)
+    o.mkdir(parents=True, exist_ok=True)
+    p = o / "interview.md"
+    if not p.exists():
+        p.write_text("# Interview answers (raw, one per key; the agent folds these into the overlay files)\n\n")
+    keys = question_keys()
+    bad = [k for k in a.keys if k not in keys]
+    if bad:
+        print(f"unknown key(s): {', '.join(bad)}; valid: {', '.join(keys)}", file=sys.stderr)
+        return 2
+    with p.open("a") as f:
+        for k in a.keys:
+            f.write(f"## {k} ({TODAY})\nconfirmed from discovery, no change{(': ' + a.note) if a.note else ''}\n\n")
+            if k not in st["answered"]:
+                st["answered"].append(k)
+    if all(k in st["answered"] for k in keys):
+        st["setup"] = "complete"
+    write_state(o, st)
+    print(f"confirmed {len(a.keys)} ({len(st['answered'])}/{len(keys)})")
     return 0
 
 
@@ -471,6 +497,7 @@ def main():
     s = sub.add_parser("status"); s.add_argument("--brief", action="store_true"); s.set_defaults(fn=cmd_status)
     s = sub.add_parser("init"); s.add_argument("--host"); s.set_defaults(fn=cmd_init)
     s = sub.add_parser("answer"); s.add_argument("key"); s.add_argument("text"); s.set_defaults(fn=cmd_answer)
+    s = sub.add_parser("confirm"); s.add_argument("keys", nargs="+"); s.add_argument("--note"); s.set_defaults(fn=cmd_confirm)
     s = sub.add_parser("journal")
     for f in ["--moment", "--channel", "--outcome", "--lesson"]:
         s.add_argument(f, required=True)

@@ -76,7 +76,7 @@ Setup is an onboarding, not a config file. `FIRST-SHIFT.md` runs once, and it lo
 
 1. **Discover.** `shift.py discover` inventories the connectors already configured on the machine (any CRM, support desk, inbox, meeting or usage tool) and the local docs and memory that say who you are. The agent reads those, proposes the customer-context source, and asks you to confirm or point elsewhere. No vendor assumed.
 2. **Dig in.** One nudge, summaries only: who you sell to, how to tell customers from everyone else (your rule, or proposed heuristics in `overlay/customers.md`), and what's in motion (`overlay/in-motion.md`).
-3. **The interview.** One question per turn, but most arrive as confirmations ("From your docs: you sell X to Y. Right?"). Defaults offered, every answer saved as it lands (`first-shift/questions.md`). Your own best replies become the exemplars.
+3. **The interview.** Everything the disk already answered comes as one bundle with a single "anything to change?" Only the true unknowns, like credit ceilings and which fields it may read, come one per turn (`first-shift/questions.md`). Your own best replies become the exemplars. Every readout is in full sentences, like a colleague at the pass (`first-shift/readouts.md`).
 4. **The window.** A menu: last 7, 14, 30 days, or custom.
 5. **The first brief.** Immediately: three to five ranked opportunities and one delight moment researched ahead of time, drafts ready (`first-shift/first-brief.md`). The one you pick first is the proof, and whatever you change is the first lesson.
 

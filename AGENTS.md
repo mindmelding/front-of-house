@@ -34,7 +34,7 @@ Never write a key into a file the operator didn't approve. Never commit a key.
 
 `python3 scripts/shift.py init --host <your host>` creates the overlay from templates. Then follow `FIRST-SHIFT.md`:
 - Dig in through the confirmed source (one nudge; summaries only): who they sell to, how customers are identified (ask; if there's no rule, propose heuristics into `overlay/customers.md`), and what's in motion (`overlay/in-motion.md`).
-- Interview, one question per turn, from `first-shift/questions.md`. Every question has a "look first in" column; confirm what you found instead of asking. Record each answer with `shift.py answer <key> "<text>"`. Offer defaults. Accept "skip."
+- Interview from `first-shift/questions.md`: everything discovery answered goes in one bundle ("anything to change?", recorded with `shift.py confirm <keys>`); only the unknowns come one per turn (`shift.py answer <key> "<text>"`). Offer defaults. Accept "skip." Every readout in full sentences, per `first-shift/readouts.md`.
 - Ask the review window as a menu (last 7, 14, 30 days, custom) with the host's choice prompt if it has one. Record it with `shift.py window`.
 - Until `overlay/authority.md` grants something, everything sensitive is a nudge: personal data, money, access, deletion, anything leaving the building. The gate is `guardrails/authority.md`.
 

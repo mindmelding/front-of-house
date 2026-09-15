@@ -60,7 +60,7 @@ Raw email addresses, phone numbers, billing details, health scores quoted verbat
 
 ## How it's used
 
-- The agent reads it at the start of every session (it's small).
+- The agent reads it at the start of every session (it's small). When it reads it out to the operator, it uses paragraphs and full sentences (`first-shift/readouts.md`), not the file's headings.
 - Every reply to someone on the "we owe" list opens by addressing the debt.
 - The gaps list drives the first proactive messages, one question each.
 - `shift.py status` flags it stale after seven days; the pre-shift offers a refresh, and a refresh always comes with a new brief (`first-shift/first-brief.md`).
