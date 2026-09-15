@@ -142,6 +142,9 @@ def main(argv):
     if argv[1] == "--repo":
         for p in sorted(ROOT.rglob("*.md")):
             rel = p.relative_to(ROOT).as_posix()
+            # A private overlay is company-specific by design; only its shipped templates are checked.
+            if rel.startswith("overlay/") and not (".template." in rel or rel == "overlay/README.md"):
+                continue
             if rel in REPO_SKIP_FILES or any(rel.startswith(d) for d in REPO_SKIP_DIRS):
                 continue
             violations += check_file(p, lex, strict=False)

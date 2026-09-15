@@ -2,7 +2,7 @@
 id: first-shift-in-motion
 type: process
 status: active
-last_reviewed: 2026-09-14
+last_reviewed: 2026-09-15
 ---
 
 # What's in motion
@@ -11,11 +11,11 @@ A dated, summary-only read of the book of business, written to `overlay/in-motio
 
 ## Nudge first
 
-Reading the account list touches customer data. Ask once: "Okay to read the account list and recent activity from [adapter]? I'll write a summary only, no raw personal details." Proceed only on yes.
+Reading the account list touches customer data. Ask once: "Okay to read the account list and recent activity from [source]? I'll write a summary only, no raw personal details." Proceed only on yes. Only accounts that pass `overlay/customers.md` count; the rest are listed under gaps as unsure.
 
-## What to pull (through the context adapter)
+## What to pull (through whichever source the operator confirmed)
 
-For Moonbase: `list_accounts` for the roster, then `ask_account` per account with one question each, batched sensibly. Elsewhere, the adapter's equivalent.
+Use the adapter file for the source if one exists in `context/adapters/`; it maps each contract row to a call. Otherwise: the roster first, then one question per account, batched sensibly. A support desk gives you threads, a CRM gives you accounts, an inbox gives you both if you group by sender domain. Say which you used at the top of the file. Scope everything to the review window in `STATE.md` where a window applies (hot, quiet, commitments); shape and gaps are always whole-book.
 
 1. **Shape.** How many accounts, by lifecycle stage (onboarding, active, at risk, churned) and by tier if the layer has it.
 2. **Open commitments we owe.** Every promise with an owner and a date, across accounts. Overdue first.
@@ -30,7 +30,7 @@ For Moonbase: `list_accounts` for the roster, then `ask_account` per account wit
 ```markdown
 # In motion, as of 2026-09-14
 
-Source: moonbase (ask_account, list_events). Summary only.
+Source: <connector> (<calls used>). Window: last 14 days. Summary only.
 
 ## Shape
 42 accounts: 6 onboarding, 29 active, 5 at risk, 2 churned this quarter.
@@ -63,4 +63,4 @@ Raw email addresses, phone numbers, billing details, health scores quoted verbat
 - The agent reads it at the start of every session (it's small).
 - Every reply to someone on the "we owe" list opens by addressing the debt.
 - The gaps list drives the first proactive messages, one question each.
-- `shift.py status` flags it stale after seven days; the pre-shift offers a refresh.
+- `shift.py status` flags it stale after seven days; the pre-shift offers a refresh, and a refresh always comes with a new brief (`first-shift/first-brief.md`).

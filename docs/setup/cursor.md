@@ -33,7 +33,7 @@ Restart Cursor and confirm the four Moonbase tools appear under Settings, MCP.
 
 **Already have a Moonbase server in `~/.cursor/mcp.json`?** Delete the project-level `.cursor/mcp.json` the installer wrote; the tool names are the same whatever the server is called.
 
-**Test it:** open the project in Cursor, start a new Agent chat, and say `read FIRST-SHIFT.md and run it`. It should nudge you before reading Moonbase, then ask the first interview question and wait.
+**Test it:** open the project in Cursor, start a new Agent chat, and say `read FIRST-SHIFT.md and run it`. It should list the connectors it found and propose one, nudge before reading it, ask the interview one question at a time (mostly as confirmations), offer a time window, and come back with a brief.
 
 **Proof:** "Using Front of House, reply to this message from Dana. Read her file first." It must call the context tools before drafting.
 

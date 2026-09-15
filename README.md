@@ -72,11 +72,13 @@ Reads the banned lists from `voice/LEXICON.md`, the same file the prompt loads, 
 
 ## The First Shift, and getting better on the job
 
-Setup is an onboarding, not a config file. `FIRST-SHIFT.md` runs once:
+Setup is an onboarding, not a config file. `FIRST-SHIFT.md` runs once, and it looks before it asks:
 
-1. **Read what's in motion.** Through the context layer, summaries only: what we owe, who's onboarding, who went quiet, what's hot. Written to `overlay/in-motion.md`, refreshed weekly.
-2. **The interview.** Seventeen questions, one per turn, defaults offered, every answer saved as it lands (`first-shift/questions.md`). Your own best replies become the exemplars. Authority ceilings, escalation people, and policies land in the overlay.
-3. **Proof.** One real thread, scored against the rubric, and whatever you change becomes the first lesson.
+1. **Discover.** `shift.py discover` inventories the connectors already configured on the machine (any CRM, support desk, inbox, meeting or usage tool) and the local docs and memory that say who you are. The agent reads those, proposes the customer-context source, and asks you to confirm or point elsewhere. No vendor assumed.
+2. **Dig in.** One nudge, summaries only: who you sell to, how to tell customers from everyone else (your rule, or proposed heuristics in `overlay/customers.md`), and what's in motion (`overlay/in-motion.md`).
+3. **The interview.** One question per turn, but most arrive as confirmations ("From your docs: you sell X to Y. Right?"). Defaults offered, every answer saved as it lands (`first-shift/questions.md`). Your own best replies become the exemplars.
+4. **The window.** A menu: last 7, 14, 30 days, or custom.
+5. **The first brief.** Immediately: three to five ranked opportunities and one delight moment researched ahead of time, drafts ready (`first-shift/first-brief.md`). The one you pick first is the proof, and whatever you change is the first lesson.
 
 Then the local loop (`first-shift/self-improvement.md`): every draft you approve, edit, or reject gets a one-line journal entry; your edits are the ground truth. When five have piled up, the agent offers a two-minute pre-shift and proposes rules, one line each, that go into `overlay/learned.md` with evidence counts and a ninety-day expiry. Capped at thirty. Nothing leaves your machine; the canon stays public and company-agnostic. `scripts/shift.py` does the bookkeeping, and the Claude Code plugin ships a SessionStart hook that reports when a pre-shift is due.
 

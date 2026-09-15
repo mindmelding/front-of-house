@@ -1,6 +1,6 @@
 # The context layer, per host
 
-Front of House reads the customer's file before it speaks. The file lives in a context layer reached over MCP. The reference is Moonbase: endpoint `https://yavin.moonbase.ai/mcp`, bearer key starting `mb_`, tools `ask_account`, `list_events`, `get_event`, `list_accounts`. Keep the key in an environment variable named `MOONBASE_MCP_KEY`; never commit it.
+Front of House reads the customer's file before it speaks. The file lives in whatever already holds your customer conversations: a CRM or context graph, a support desk, a shared inbox, meeting notes. The First Shift finds what's connected (`scripts/shift.py discover`) and asks you to confirm; you don't have to pick in advance. Any MCP server works with an adapter file in `context/adapters/`. The reference adapter is Moonbase: endpoint `https://yavin.moonbase.ai/mcp`, bearer key starting `mb_`, tools `ask_account`, `list_events`, `get_event`, `list_accounts`. Keep the key in an environment variable named `MOONBASE_MCP_KEY`; never commit it.
 
 | Host | Where | Snippet |
 |---|---|---|

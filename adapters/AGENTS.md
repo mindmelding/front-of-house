@@ -75,7 +75,7 @@ These are not preferences. Violating one is a failed interaction regardless of h
 
 ## How to use this canon
 
-0. First time here, or no overlay yet? Run `python3 scripts/shift.py status`. If setup is incomplete, run the First Shift (`FIRST-SHIFT.md`): read what's in motion, interview the operator one question at a time, prove it on one thread. If a pre-shift is warranted (lessons to distill, stale in-motion read), offer it; never force it.
+0. First time here, or no overlay yet? Run `python3 scripts/shift.py status`. If setup is incomplete, run the First Shift (`FIRST-SHIFT.md`): discover what's already on this machine (`shift.py discover`: connectors, docs, memory) and read it before asking anything; propose the customer-context source and confirm it; dig in with one nudge; interview one question at a time, confirming what the disk already told you; offer a review window as a menu (7, 14, 30 days, custom); then come back with a ranked brief of opportunities and one researched delight moment, drafts ready. If a pre-shift is warranted (lessons to distill, stale in-motion read), offer it; never force it.
 1. `MINDSET.md` and `PRECEDENCE.md` are always loaded. They are who you are. Then the overlay, then `overlay/learned.md`, then `overlay/in-motion.md`.
 2. Before replying to anyone, satisfy `context/CONTRACT.md` through the adapter for your context layer. If a context MCP server is connected (for example a tool like `ask_account`), call it before drafting, every time. Read the file before you greet the guest. If no context tools are connected, treat it as a first conversation and never pretend to know.
 3. Identify the moment. Load exactly one playbook from `moments/`. Load a second only if the thread spans two moments.

@@ -22,26 +22,25 @@ If you can't run scripts, copy by hand:
 - Claude Code: `adapters/CLAUDE.md` into `<project>/CLAUDE.md`, and symlink this repo to `<project>/.claude/skills/front-of-house`
 - Anything else: `adapters/system-prompt.txt` as the system prompt
 
-## 3. Connect the context layer, with the operator
+## 3. Find the context that's already here
 
-The canon expects to read the customer's file before speaking (`context/CONTRACT.md`). The file lives in a context layer reached over MCP. The reference adapter is Moonbase (`context/adapters/moonbase.md`, endpoint `https://yavin.moonbase.ai/mcp`, bearer key starting `mb_`). Per-host config is in `docs/setup/context-layer.md`.
+Run `python3 scripts/shift.py discover`. It inventories every MCP connector configured on this machine for every host (CRMs, support desks, inboxes, meeting recorders, usage analytics, billing, trackers) and the local files that say who the operator is (project and user instructions, agent memory, docs folders). Secrets are masked; the result is `overlay/discovery.md`, local only.
 
-Ask the operator two things. Do not guess either.
-- "Which context layer should I connect, and can you give me the key or set it as `MOONBASE_MCP_KEY`?"
-- "Okay to write the MCP config with it?"
+Read the local files it found before you ask anything. Then say what you'd use as the customer's file, best candidate first, and ask one question: "Use that, or point me somewhere else?" Do not name a vendor as the expected answer. If nothing is connected, ask where customer context lives and help wire it (`docs/setup/context-layer.md`); the reference adapter in `context/adapters/` shows the shape.
 
-Never write a key into a file the operator didn't approve. Never commit a key. If they have no context layer, say so and proceed; you'll treat every conversation as a first one.
+Never write a key into a file the operator didn't approve. Never commit a key.
 
 ## 4. Run the First Shift
 
 `python3 scripts/shift.py init --host <your host>` creates the overlay from templates. Then follow `FIRST-SHIFT.md`:
-- Read what's in motion through the context layer (nudge first; summaries only) and write `overlay/in-motion.md`.
-- Interview the operator, one question per turn, from `first-shift/questions.md`. Record each answer with `shift.py answer <key> "<text>"` and fold it into the overlay file it belongs to. Offer defaults. Accept "skip."
+- Dig in through the confirmed source (one nudge; summaries only): who they sell to, how customers are identified (ask; if there's no rule, propose heuristics into `overlay/customers.md`), and what's in motion (`overlay/in-motion.md`).
+- Interview, one question per turn, from `first-shift/questions.md`. Every question has a "look first in" column; confirm what you found instead of asking. Record each answer with `shift.py answer <key> "<text>"`. Offer defaults. Accept "skip."
+- Ask the review window as a menu (last 7, 14, 30 days, custom) with the host's choice prompt if it has one. Record it with `shift.py window`.
 - Until `overlay/authority.md` grants something, everything sensitive is a nudge: personal data, money, access, deletion, anything leaving the building. The gate is `guardrails/authority.md`.
 
-## 5. Prove it works
+## 5. Come back with work
 
-Ask the operator for one real customer thread. Read the file through the context tools. Draft. Self-score against `evals/rubric.md`. Run `python3 scripts/fohcheck.py` on the draft. Show the score and the reply. Whatever the operator changes becomes your first journal entry (`shift.py journal`) and, if it's a rule, the first line of `overlay/learned.md` (`shift.py learn`).
+Follow `first-shift/first-brief.md`. Over the window: three to five ranked opportunities (overdue promises, first hundred days drifting, gone quiet, still warm, expansion, small moments worth a human) and one delight moment you researched ahead of time. Drafts ready, files cited, nudges inline. Save it to `overlay/briefs/`. Ask "Which one first?" That thread is the proof: draft, self-score against `evals/rubric.md`, run `python3 scripts/fohcheck.py` on it, and whatever the operator changes becomes the first journal entry (`shift.py journal`) and, if it's a rule, the first learned rule (`shift.py learn`).
 
 ## 6. Now behave, and keep getting better
 

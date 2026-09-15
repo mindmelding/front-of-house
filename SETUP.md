@@ -27,6 +27,7 @@ Every host ends the same way: connect the context layer, then run the First Shif
 
 ## What the agent does with all this, in order
 
+0. First time: discovers what's already on the machine, confirms the context source, interviews you one question at a time, and comes back with a ranked brief plus a delight moment (`FIRST-SHIFT.md`).
 1. Loads the mindset and precedence (always).
 2. Reads the customer's file through the context tools. If none are connected, says so internally and proceeds as a first conversation.
 3. Picks one moment playbook.
