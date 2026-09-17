@@ -25,3 +25,16 @@ jobs:
             fi
           done
           exit $missing
+      - name: Engine smoke test (scratch overlay, anonymization audit)
+        run: |
+          export FOH_OVERLAY=$(mktemp -d)
+          E() { python3 scripts/engine.py "$@"; }
+          E alias add "Example Customer Inc" --kind account
+          E alias add "Jane Example" --kind person --org "Example Customer Inc"
+          E house init
+          E house add refund-or-credit "Jane Example at Example Customer Inc gets the number first" --evidence 2 --confirmed
+          E queue add --moment silence --kind rule --text "A heads-down statement sets a quiet clock" --evidence 2
+          E queue decide $(date +%Y-%m-%d)-01 approve
+          E drill next --n 3
+          E alias audit
+          ! grep -rqi "Example Customer Inc\|Jane Example" "$FOH_OVERLAY/house" "$FOH_OVERLAY/queue"

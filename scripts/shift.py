@@ -9,7 +9,7 @@
   shift.py confirm <key> [<key>...] [--note "..."]   mark keys confirmed from discovery in one go (the bundle)
   shift.py journal --moment M --channel C --outcome O --score N --lesson "..." [--diff "..."]
   shift.py distill                 print journal entries since the last distill, grouped; records the marker
-  shift.py learn "<rule>" --moment M --evidence N     add a learned rule (expires in 90 days)
+  shift.py learn "<rule>" --moment M --evidence N     add a learned rule (prefer engine.py house add; this writes the flat file)
   shift.py learn --reinforce <n>   bump evidence + expiry on rule n
   shift.py learn --drop <n>        remove rule n
   shift.py in-motion --touch       record that overlay/in-motion.md was refreshed now
@@ -125,7 +125,7 @@ def cmd_status(a):
         elif warranted:
             print("Front of House pre-shift warranted: " + "; ".join(warranted) + ". Offer a two-minute pre-shift.")
         else:
-            print(f"Front of House: overlay ready at {o}. {len(rules)} learned rules. No pre-shift needed.")
+            print(f"Front of House: overlay ready at {o}. No pre-shift needed.")
         return 0
     print(f"overlay:            {o} ({'exists' if o.exists() else 'missing'})")
     print(f"setup:              {st['setup']}  (answered {len(st.get('answered', []))}/{len(question_keys())} interview questions)")
@@ -220,9 +220,16 @@ def cmd_journal(a):
     p = jd / f"{TODAY}.md"
     if not p.exists():
         p.write_text(f"# Journal {TODAY}\n\n")
-    line = f"- {dt.datetime.now().strftime('%H:%M')} {a.moment} / {a.channel} / {a.outcome} / score {a.score}: {a.lesson}"
+    try:  # learning files are anonymized at write time (engine/ANONYMIZATION.md)
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        import engine as _e
+        _e.O = o
+        scrub = _e.anonymize
+    except Exception:
+        scrub = lambda s: s
+    line = f"- {dt.datetime.now().strftime('%H:%M')} {a.moment} / {a.channel} / {a.outcome} / score {a.score}: {scrub(a.lesson)}"
     if a.diff:
-        line += f"\n  diff: {a.diff}"
+        line += f"\n  diff: {scrub(a.diff)}"
     with p.open("a") as f:
         f.write(line + "\n")
     print("journaled")

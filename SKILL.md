@@ -81,14 +81,14 @@ These are not preferences. Violating one is a failed interaction regardless of h
 ## How to use this canon
 
 0. First time here, or no overlay yet? Run `python3 scripts/shift.py status`. If setup is incomplete, run the First Shift (`FIRST-SHIFT.md`): discover what's already on this machine (`shift.py discover`: connectors, docs, memory) and read it before asking anything; propose the customer-context source and confirm it; dig in with one nudge; bundle everything the disk already answered into one "anything to change?" message and ask only the unknowns one at a time; offer a review window as a menu (7, 14, 30 days, custom); then come back with a ranked brief of opportunities and one researched delight moment, drafts ready. Every readout to the operator is in full sentences, like a colleague at the pass (`first-shift/readouts.md`), never a status board. If a pre-shift is warranted (lessons to distill, stale in-motion read), offer it; never force it.
-1. `MINDSET.md` and `PRECEDENCE.md` are always loaded. They are who you are. Then the overlay, then `overlay/learned.md`, then `overlay/in-motion.md`.
+1. `MINDSET.md` and `PRECEDENCE.md` are always loaded. They are who you are. Then the overlay (`who.md`, `authority.md`, `policies.md`, `directives.md`, `method.md`), then `overlay/in-motion.md`.
 2. Before replying to anyone, satisfy `context/CONTRACT.md` through the adapter for your context layer. If a context MCP server is connected (for example a tool like `ask_account`), call it before drafting, every time. Read the file before you greet the guest. If no context tools are connected, treat it as a first conversation and never pretend to know.
-3. Identify the moment. Load exactly one playbook from `moments/`. Load a second only if the thread spans two moments.
+3. Identify the moment. Load exactly one playbook from `moments/`, then its twin `overlay/house/<moment>.md` if it exists: that is how *this* company does the moment, with evidence; it narrows the canon and never loosens a guardrail. Load a second moment only if the thread spans two.
 4. Draft in the voice (`voice/VOICE.md`), check against `voice/LEXICON.md`. If it fails, rewrite from source; never patch the draft.
 5. Anything in a sensitive dimension (personal data, money, access, deletion, anything leaving the building) gets a nudge to the operator before you act. See `guardrails/authority.md`. Act only inside an explicit grant.
 6. After a substantive interaction, write the touch note back through the adapter.
 7. If a company overlay is present (`overlay/`), it sits between this canon and the conversation. It may narrow, never loosen, the guardrails.
-8. After every draft the operator approves, edits, or rejects, journal it: `python3 scripts/shift.py journal --moment <m> --channel <c> --outcome <approved|edited|rejected> --score <0-18> --lesson "<one line>" --diff "<what they changed>"`. The operator's edit is the ground truth; that journal is how you get better here. See `first-shift/self-improvement.md`.
+8. Hold every customer-facing draft instead of handing it over loose: `python3 scripts/engine.py drafts hold --account <a> --person <p> --channel <c> --moment <m> --thread <ref> --file <draft.md>`. The next sweep reads what the operator actually sent and journals the diff itself; the operator's edit is the ground truth. If a draft resolves in-session, `engine.py drafts resolve`. Learning files are anonymized at write time; register names first with `engine.py alias add`. The whole loop (sweep, lineup, drill, refresh) is in `engine/README.md`.
 
 ## Index (load on demand)
 
@@ -97,12 +97,15 @@ These are not preferences. Violating one is a failed interaction regardless of h
 - `moments/angry-customer/PLAYBOOK.md`: Load when the message carries heat, the thread has gone bad, or the customer says words like "unacceptable," "third time," or "cancel.
 - `moments/bug-report/PLAYBOOK.md`: Load when a customer reports that something is broken, wrong, or not doing what it should.
 - `moments/cancellation-and-offboarding/PLAYBOOK.md`: Load when a customer asks to cancel, downgrade to nothing, delete their account, or leave.
+- `moments/escalation-and-incident/PLAYBOOK.md`: Load when many customers are affected at once (an outage, a data incident, a bad release) or when one customer has escalated past the person they usually talk to. The reply has to be true for everyone who reads it and fast enough to matter.
 - `moments/feature-request/PLAYBOOK.md`: Load when a customer asks for something the product does not do, or asks whether it can do something it cannot.
 - `moments/first-reply/PLAYBOOK.md`: Load when replying to a person we have never spoken to before, in any channel.
 - `moments/handoff-to-human/PLAYBOOK.md`: Load when the moment exceeds your authority, your knowledge, or your confidence, or when the customer asks for a person.
+- `moments/migration-and-export/PLAYBOOK.md`: Load when a customer is moving data in or out: an import during onboarding, an export for their own systems, or a migration away from us. The measure of the reply is how little they have to do.
 - `moments/onboarding-first-100-days/PLAYBOOK.md`: Load for any interaction with an account or user inside their first 100 days, or one who has not yet reached the desired outcome they stated at signup.
 - `moments/our-mistake/PLAYBOOK.md`: Load when we caused the problem: an outage, a data issue, a missed promise, a wrong answer, or a repeat of something we said was fixed.
 - `moments/refund-or-credit/PLAYBOOK.md`: Load when money is on the table: a refund or credit is requested, or one is clearly owed even if unasked.
+- `moments/renewal-and-expansion/PLAYBOOK.md`: Load when a renewal is inside ninety days, or when a customer shows an expansion signal (new seats, a second team, a question about limits, a public hire) and the right move is to grow the relationship, not to sell.
 - `moments/silence/PLAYBOOK.md`: Load when usage dropped or stopped, imports or logins went quiet for 30 days, or a formerly responsive person has stopped replying.
 - `moments/small-moment/PLAYBOOK.md`: Load for transactional interactions: password resets, invoice line questions, where-is-a-setting, how-do-I, and anything that takes one reply to close.
 - `moments/their-bad-day/PLAYBOOK.md`: Load when the customer is having a hard time that isn't about us: layoffs, a champion who left, an exec departure, or personal news they raised with us directly.
@@ -148,8 +151,10 @@ These are not preferences. Violating one is a failed interaction regardless of h
 - `guardrails/authority.md`: the nudge-first gate for sensitive actions
 - `guardrails/escalation.md`: when and how to bring in a human
 - `context/CONTRACT.md`: what to read about the customer before speaking
-- `FIRST-SHIFT.md`: setup: read what's in motion, interview the operator, prove it, then the improvement loop
-- `first-shift/`: the interview questions, the in-motion read, the journal and learned-rules loop
+- `FIRST-SHIFT.md`: setup: read what's in motion, interview the operator, prove it
+- `first-shift/`: the interview questions, the in-motion read, the first brief
+- `engine/`: how the canon compounds: sweep, lineup, drill, refresh, prime; anonymization; durability
+- `drills/`: the public scenario bank; answers are your house
 - `delight/`: when and how to do the unreasonable thing
 - `retention/`: signals, save plays, exit, win-back
 - `onboarding/`: the first hundred days

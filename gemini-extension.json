@@ -1,6 +1,6 @@
 {
   "name": "front-of-house",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A hospitality canon any customer-facing agent can load. Eleven Madison Park mindset, nudge-first on anything sensitive, one playbook per customer moment.",
   "contextFileName": "GEMINI.md",
   "mcpServers": {

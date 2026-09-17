@@ -1,7 +1,7 @@
 {
   "name": "front-of-house",
-  "version": "0.1.0",
-  "description": "A hospitality canon any customer-facing agent can load. Eleven Madison Park mindset, nudge-first on anything sensitive, one playbook per customer moment.",
+  "version": "0.2.0",
+  "description": "A hospitality canon any customer-facing agent can load, plus the engine that makes it yours: a house by moment, graded picks, anonymized learning, drills. Nudge-first on anything sensitive.",
   "author": {
     "name": "Sean Mancillas",
     "url": "https://github.com/scmancillas"
@@ -20,5 +20,6 @@
     "agent-skills"
   ],
   "skills": "./",
-  "hooks": "./hooks/hooks.json"
+  "hooks": "./hooks/hooks.json",
+  "commands": "./commands"
 }

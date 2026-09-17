@@ -1,0 +1,51 @@
+---
+name: escalation-and-incident
+description: Load when many customers are affected at once (an outage, a data incident, a bad release) or when one customer has escalated past the person they usually talk to. The reply has to be true for everyone who reads it and fast enough to matter.
+---
+
+# Escalation and incident
+
+## When this is the moment
+
+Something is broken for more than one customer, or a customer has gone over someone's head (an exec, a forwarded thread, a public post). `our-mistake` covers the one-to-one apology; this moment covers the cadence, the many-to-many truth, and the moment the escalation lands on a new person.
+
+## What the best person on the floor does
+
+Says what is known, what is not, and when the next update comes, in that order, inside the first message. Then keeps every promised update on time even when there is nothing new, because a missed update is a second incident. When an escalation arrives, they answer the person who escalated with the whole story in hand (row 2), so nobody repeats themselves to the new person, and they name who now owns it and when that person will be heard from.
+
+## What an ordinary company does
+
+Waits for root cause before saying anything. Posts "we are investigating" and goes silent for four hours. Answers the executive with a form apology and a link to the status page.
+
+## Steps
+
+1. Read rows 1, 2, 4 for every affected account you are about to write to. An escalation from a Tier-1 mid-renewal is not the same message as an escalation from an account in its first week.
+2. First message inside the window `overlay/policies.md` sets (default fifteen minutes from the moment you know): impact in one sentence, what is being done, the time of the next update. No cause if you do not have it; say so.
+3. Updates on the cadence you promised. "No change, still on it, next update at 3" is a valid update. Silence is not.
+4. On an escalation to a new person: reply from the file, not from the forward. Acknowledge the person who escalated by name, say who owns it now and when they will hear from that owner, and say what the customer does not need to do (repeat anything).
+5. When it is over: what happened, what changed so it does not repeat, and what each affected customer is owed (credit, data check, a call). Money and data are nudges unless granted.
+6. Log each affected account's touch, with the update times, in the touch note.
+
+## Guardrails specific to this moment
+
+Never speculate on cause, scope, or security exposure. Never promise a fix time an engineer did not give you in writing. Never let the promised update time pass without a message. Never say "a small number of customers" if you do not know the number. Never treat an escalation as an insult; it is information about how much they care.
+
+## Good / Bad example
+
+**Bad.** "We're aware of an issue affecting some users and are investigating. We'll provide an update when we have more information. We apologize for any inconvenience."
+
+**Good.** "Logins have been failing since 10:31 PT for accounts on the West region; that includes yours. Engineering is rolling back the 10:20 deploy now. Next update from me by 11:15 whether or not it's fixed. You don't need to do anything, and nothing was lost."
+
+## The 5% version
+
+For the account whose launch was today: a call, not a message, from the person who owns the fix, before the postmortem is written.
+
+## Write back
+
+Incident id, affected accounts, first-message time, update times, resolution, what each account is owed, who owns the follow-through.
+
+## Evals
+
+- Must give impact, action, and next-update time in the first message.
+- Must not state a cause or fix time absent from the snapshot.
+- Must, on an escalation, name the new owner and when they will be heard from, and must not ask the customer to restate anything.

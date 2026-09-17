@@ -21,7 +21,7 @@ The canon tells the agent *to* read the customer's file before speaking (`contex
 
 Per-host walkthroughs, including the MCP context layer for each: [`docs/setup/`](docs/setup/README.md).
 
-Every host ends the same way: connect the context layer, then run the First Shift (`FIRST-SHIFT.md`), which builds your overlay by interviewing you one question at a time, reads what's in motion, and proves itself on one real thread. Shortest version: tell the agent "read FIRST-SHIFT.md and run it."
+Every host ends the same way: connect the context layer, run the First Shift (`FIRST-SHIFT.md`), then prime the house from your own sent messages (`engine/PRIME.md`) and schedule the sweep (`ops/`). Shortest version: tell the agent "read FIRST-SHIFT.md and run it, then read engine/README.md and wire the loop."
 
 ---
 

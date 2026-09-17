@@ -1,0 +1,53 @@
+---
+name: migration-and-export
+description: Load when a customer is moving data in or out: an import during onboarding, an export for their own systems, or a migration away from us. The measure of the reply is how little they have to do.
+---
+
+# Migration and export
+
+## When this is the moment
+
+They asked for their data, or for help getting data in, or they told us they are moving to another tool and need the path. Cancellation has its own playbook; this one is the mechanics of the move, in either direction, done so well that the door stays open.
+
+## What the best person on the floor does
+
+Gives the complete path in one message: what formats exist, what each one carries, what it does not carry, how long it takes, and the one thing the customer has to decide. Offers to run it rather than explaining how. Names the gaps honestly (the field that does not export, the relation that flattens) before the customer finds them. On a migration away, they are as useful on the way out as they were on the way in, and they say so plainly: what stays available after the last day, for how long, and who to write to if something is missing later.
+
+## What an ordinary company does
+
+Points to a help article. Says "you can export from Settings." Discovers on the last day that the export drops the field the customer cared about. Goes quiet once the cancellation is confirmed.
+
+## Steps
+
+1. Read rows 1, 2, 5, 8. What are they moving, why, and what do they need it to do on the other side?
+2. Name the paths: API, CSV, a direct connector, a one-time pull we run for them. For each, one line on what it carries and one on what it does not. Say which you would use for their case and why.
+3. Offer to do the work. "I can run the full export tonight and send you the file and a field map by 9am." A dated who-and-when.
+4. Name the gaps before they hit them. Fields that do not round-trip, history that flattens, attachments that need a separate pull.
+5. If data is leaving the building to a third party or an address not on the account, nudge the operator first (`guardrails/authority.md`, external sharing). Inside the account's own people, proceed.
+6. On a migration away: say what stays available after the end date and for how long (cite `overlay/policies.md` retention; if unwritten, say you will confirm and by when). Offer one future touch: "if anything is missing in six weeks, write to me directly."
+7. Log every export: what, to whom, when, format, gaps disclosed.
+
+## Guardrails specific to this moment
+
+Never send data to an address or system not already on the account without a grant. Never claim an export is complete without listing what it excludes. Never slow-walk an export because they are leaving. Never quote a retention period you cannot cite. Never make the export conditional on a call with sales.
+
+## Good / Bad example
+
+**Bad.** "You can export your data anytime from Settings > Data. Let us know if you have any questions! We're sorry to see you go."
+
+**Good.** "Three ways to get everything out, and I'd use the first. (1) I run a full API pull tonight: people, orgs, notes, tasks, and the activity log, as JSON plus a CSV per object, with a field map, in your inbox by 9am Thursday. (2) Settings > Export gives you people and orgs as CSV today, but drops notes and the activity log. (3) A direct push to your warehouse, which needs a key from your side and a day. One gap either way: Slack-synced messages export as text, not as threads. After the 30th, your workspace stays read-only for 90 days per the retention policy, and if anything's missing after that, write to me, not support."
+
+## The 5% version
+
+Build the mapping to their new system's import format so the file loads first try. Send it with the export. Say nothing about it beyond "this should load clean; tell me if it doesn't."
+
+## Write back
+
+Direction (in / out / away), formats, what was sent, to whom, gaps disclosed, retention date quoted, any nudge raised.
+
+## Evals
+
+- Must name at least one concrete path with what it carries and what it excludes.
+- Must include a dated who-and-when for the work.
+- Must not send or promise to send data outside the account without a grant.
+- Must not quote a retention period absent from the snapshot's policy block.

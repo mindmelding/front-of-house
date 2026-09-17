@@ -56,10 +56,14 @@ inbox/               daily captures, triaged weekly
 adapters/            generated: CLAUDE.md, AGENTS.md, cursor/, copilot-instructions.md, openai-custom-gpt.txt, codex-config.toml, system-prompt.txt, llms.txt
 SKILL.md, GEMINI.md  generated: the whole repo as one Agent Skill; Gemini extension context
 docs/setup/          per-host setup, including the MCP context layer
-scripts/             fohcheck.py (lexicon validator), build_adapters.py, shift.py (first shift + journal), install.sh
-FIRST-SHIFT.md       onboarding for the agent itself: in-motion read, interview, proof, then the local improvement loop
-first-shift/         questions, the in-motion read, the self-improvement loop
-hooks/               Claude Code plugin hook: SessionStart runs shift.py status
+engine/              how the canon compounds: sweep, lineup, drill, refresh, prime; anonymization; durability; account state
+drills/              the public scenario bank, no answers; the answers are your house
+commands/            Claude Code slash commands: /lineup, /drill, /sweep, /refresh, /prime
+ops/                 launchd template for the scheduled sweep
+scripts/             fohcheck.py (lexicon), build_adapters.py, shift.py (first shift), engine.py (the loop's bookkeeping), sweep.sh
+FIRST-SHIFT.md       onboarding for the agent itself: in-motion read, interview, proof, first brief
+first-shift/         questions, the in-motion read, the first brief
+hooks/               Claude Code plugin hook: SessionStart reports setup state, the sweep heartbeat, and what needs deciding
 ```
 
 ## Check a draft
@@ -80,7 +84,31 @@ Setup is an onboarding, not a config file. `FIRST-SHIFT.md` runs once, and it lo
 4. **The window.** A menu: last 7, 14, 30 days, or custom.
 5. **The first brief.** Immediately: three to five ranked opportunities and one delight moment researched ahead of time, drafts ready (`first-shift/first-brief.md`). The one you pick first is the proof, and whatever you change is the first lesson.
 
-Then the local loop (`first-shift/self-improvement.md`): every draft you approve, edit, or reject gets a one-line journal entry; your edits are the ground truth. When five have piled up, the agent offers a two-minute pre-shift and proposes rules, one line each, that go into `overlay/learned.md` with evidence counts and a ninety-day expiry. Capped at thirty. Nothing leaves your machine; the canon stays public and company-agnostic. `scripts/shift.py` does the bookkeeping, and the Claude Code plugin ships a SessionStart hook that reports when a pre-shift is due.
+## The engine: how it becomes yours
+
+The canon is the industry standard. The engine (`engine/README.md`) is how it turns into *your* house, one graded day at a time, and how what you learned can leave the building without any customer going with it.
+
+```
+CANON     principles/ moments/ guardrails/ voice/ evals/     public, company-agnostic
+   │ inherits
+HOUSE     overlay/house/<moment>.md                          private, "how we do refunds," anonymized
+   │ drives
+ENGINE    sweep · lineup · drill · refresh                   scripts/engine.py + engine/*.md
+```
+
+**The house is one file per moment.** `overlay/house/refund-or-credit.md` starts empty, which means "do what the canon says." Every line added carries evidence, a confirmation date, and a ninety-day expiry. Denied ideas are recorded too, so the engine never asks twice. Confidence per moment is computed and shown in `overlay/house/README.md`; a low silo is still running on defaults, and that column moving is the whole point.
+
+**Sweep** runs every weekday morning from the OS scheduler (`ops/`), unattended, silent when quiet. It reads the delta from your context layer, and, the part that makes it turn without ceremony, it diffs every draft it held yesterday against what you actually sent. Your edit is the ground truth and you never have to report it. Two sightings of the same shape become a proposal; three proposals a day, maximum. It ranks what needs doing, holds drafts, and writes a heartbeat the SessionStart hook reads.
+
+**Lineup** (`/lineup`) is five minutes when the hook says there is something to decide. Report card first: yesterday's picks, did you act, was it right. Then proposals, one at a time: approve, reword, deny, later. Then today's brief and "which one first?" Then one question about how you work. A lineup that changed no file was a chat.
+
+**Drill** (`/drill`) manufactures the volume a small book cannot. Three scenarios from the lowest-confidence silos (`drills/bank/` ships without answers), you answer or edit the agent's draft, both get scored, you say what the rule is, and your reply becomes a private eval case. A new team's first week on the canon is drills.
+
+**Refresh** (`/refresh`) is monthly: expire, consolidate, contradiction check, the two numbers (draft survival and pick precision), and anything true everywhere goes upstream as a PR, after the anonymization audit passes.
+
+**Anonymized at write time.** Learning files (house, journal, queue, drills, private evals, lexicon, method) only ever hold aliases: accounts become Alder and Basalt, people become Avery and Blake, emails and record links are scrubbed. Operational files (briefs, held drafts, the ledger) keep real names and never leave the overlay. `engine.py alias audit` is the gate. Because of that line, two teams can drill the same scenario and compare houses without either seeing the other's customers. `engine/ANONYMIZATION.md`.
+
+**Durable or it does not exist.** Scheduled work runs from launchd or cron, never from an in-session routine, and every job reports its own death through the heartbeat. `engine/DURABILITY.md` has the story and the checklist.
 
 ## How it stays alive
 
@@ -88,7 +116,7 @@ Then the local loop (`first-shift/self-improvement.md`): every draft you approve
 - **Weekly pre-shift:** thirty minutes. Promote inbox items to a principle, playbook, exemplar, legend, or eval case. Or discard. Every promotion gets a `CHANGELOG.md` line.
 - **Monthly opinion court:** re-argue three opinions with fresh evidence. Promote, demote, or reverse in `decisions/`.
 - **Monthly mystery shopper:** an agent plays a customer through a whole lifecycle against the canon. Worst stage becomes the priority.
-- **On every PR:** lexicon check, adapters fresh, every moment has an eval.
+- **On every PR:** lexicon check, adapters fresh, every moment has an eval, engine smoke test.
 
 ## Who this is built on
 

@@ -87,8 +87,10 @@ def index_block():
         ("guardrails/authority.md", "the nudge-first gate for sensitive actions"),
         ("guardrails/escalation.md", "when and how to bring in a human"),
         ("context/CONTRACT.md", "what to read about the customer before speaking"),
-        ("FIRST-SHIFT.md", "setup: read what's in motion, interview the operator, prove it, then the improvement loop"),
-        ("first-shift/", "the interview questions, the in-motion read, the journal and learned-rules loop"),
+        ("FIRST-SHIFT.md", "setup: read what's in motion, interview the operator, prove it"),
+        ("first-shift/", "the interview questions, the in-motion read, the first brief"),
+        ("engine/", "how the canon compounds: sweep, lineup, drill, refresh, prime; anonymization; durability"),
+        ("drills/", "the public scenario bank; answers are your house"),
         ("delight/", "when and how to do the unreasonable thing"),
         ("retention/", "signals, save plays, exit, win-back"),
         ("onboarding/", "the first hundred days"),
@@ -102,14 +104,14 @@ def loading_rules():
     return """## How to use this canon
 
 0. First time here, or no overlay yet? Run `python3 scripts/shift.py status`. If setup is incomplete, run the First Shift (`FIRST-SHIFT.md`): discover what's already on this machine (`shift.py discover`: connectors, docs, memory) and read it before asking anything; propose the customer-context source and confirm it; dig in with one nudge; bundle everything the disk already answered into one "anything to change?" message and ask only the unknowns one at a time; offer a review window as a menu (7, 14, 30 days, custom); then come back with a ranked brief of opportunities and one researched delight moment, drafts ready. Every readout to the operator is in full sentences, like a colleague at the pass (`first-shift/readouts.md`), never a status board. If a pre-shift is warranted (lessons to distill, stale in-motion read), offer it; never force it.
-1. `MINDSET.md` and `PRECEDENCE.md` are always loaded. They are who you are. Then the overlay, then `overlay/learned.md`, then `overlay/in-motion.md`.
+1. `MINDSET.md` and `PRECEDENCE.md` are always loaded. They are who you are. Then the overlay (`who.md`, `authority.md`, `policies.md`, `directives.md`, `method.md`), then `overlay/in-motion.md`.
 2. Before replying to anyone, satisfy `context/CONTRACT.md` through the adapter for your context layer. If a context MCP server is connected (for example a tool like `ask_account`), call it before drafting, every time. Read the file before you greet the guest. If no context tools are connected, treat it as a first conversation and never pretend to know.
-3. Identify the moment. Load exactly one playbook from `moments/`. Load a second only if the thread spans two moments.
+3. Identify the moment. Load exactly one playbook from `moments/`, then its twin `overlay/house/<moment>.md` if it exists: that is how *this* company does the moment, with evidence; it narrows the canon and never loosens a guardrail. Load a second moment only if the thread spans two.
 4. Draft in the voice (`voice/VOICE.md`), check against `voice/LEXICON.md`. If it fails, rewrite from source; never patch the draft.
 5. Anything in a sensitive dimension (personal data, money, access, deletion, anything leaving the building) gets a nudge to the operator before you act. See `guardrails/authority.md`. Act only inside an explicit grant.
 6. After a substantive interaction, write the touch note back through the adapter.
 7. If a company overlay is present (`overlay/`), it sits between this canon and the conversation. It may narrow, never loosen, the guardrails.
-8. After every draft the operator approves, edits, or rejects, journal it: `python3 scripts/shift.py journal --moment <m> --channel <c> --outcome <approved|edited|rejected> --score <0-18> --lesson "<one line>" --diff "<what they changed>"`. The operator's edit is the ground truth; that journal is how you get better here. See `first-shift/self-improvement.md`.
+8. Hold every customer-facing draft instead of handing it over loose: `python3 scripts/engine.py drafts hold --account <a> --person <p> --channel <c> --moment <m> --thread <ref> --file <draft.md>`. The next sweep reads what the operator actually sent and journals the diff itself; the operator's edit is the ground truth. If a draft resolves in-session, `engine.py drafts resolve`. Learning files are anonymized at write time; register names first with `engine.py alias add`. The whole loop (sweep, lineup, drill, refresh) is in `engine/README.md`.
 """
 
 

@@ -2,7 +2,7 @@
 id: moments
 type: index
 status: active
-last_reviewed: 2026-09-14
+last_reviewed: 2026-09-17
 ---
 
 # Moments
@@ -32,7 +32,10 @@ The customer lifecycle as a taxonomy of moments. Each moment has one playbook in
 | Handoff to human | The moment exceeds your authority or your knowledge | `handoff-to-human/` | p25, p26, p23 |
 | Small moment | Transactional: reset, invoice line, where-is-setting | `small-moment/` | p28, p07, p17 |
 | Their bad day | Layoffs, champion left, exec departure, personal news they raised | `their-bad-day/` | p09, p08, privacy |
+| Renewal and expansion | Renewal inside 90 days, or an expansion signal (seats, a second team, a limit question) | `renewal-and-expansion/` | p21, p13, p27 |
+| Escalation and incident | Many affected at once, or one customer went over someone's head | `escalation-and-incident/` | p19, p26, p25, p13 |
+| Migration and export | Data moving in, out, or away; the measure is how little they have to do | `migration-and-export/` | p06, p22, p24, privacy |
 
 ## Not yet written
 
-Outage (public comms), security incident, price change, renewal, expansion signal, executive complaint, advocacy ask, milestone, win-back, VIP. Each of these is an inbox item until someone writes it. Until then, use the nearest moment above and `PRECEDENCE.md`.
+Security incident (its own comms), price change, executive complaint, advocacy ask, milestone, win-back, VIP. Each of these is an inbox item until someone writes it. Until then, use the nearest moment above and `PRECEDENCE.md`.

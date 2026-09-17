@@ -15,12 +15,15 @@
 - [angry-customer](moments/angry-customer/PLAYBOOK.md): Load when the message carries heat, the thread has gone bad, or the customer says words like "unacceptable," "third time," or "cancel.
 - [bug-report](moments/bug-report/PLAYBOOK.md): Load when a customer reports that something is broken, wrong, or not doing what it should.
 - [cancellation-and-offboarding](moments/cancellation-and-offboarding/PLAYBOOK.md): Load when a customer asks to cancel, downgrade to nothing, delete their account, or leave.
+- [escalation-and-incident](moments/escalation-and-incident/PLAYBOOK.md): Load when many customers are affected at once (an outage, a data incident, a bad release) or when one customer has escalated past the person they usually talk to. The reply has to be true for everyone who reads it and fast enough to matter.
 - [feature-request](moments/feature-request/PLAYBOOK.md): Load when a customer asks for something the product does not do, or asks whether it can do something it cannot.
 - [first-reply](moments/first-reply/PLAYBOOK.md): Load when replying to a person we have never spoken to before, in any channel.
 - [handoff-to-human](moments/handoff-to-human/PLAYBOOK.md): Load when the moment exceeds your authority, your knowledge, or your confidence, or when the customer asks for a person.
+- [migration-and-export](moments/migration-and-export/PLAYBOOK.md): Load when a customer is moving data in or out: an import during onboarding, an export for their own systems, or a migration away from us. The measure of the reply is how little they have to do.
 - [onboarding-first-100-days](moments/onboarding-first-100-days/PLAYBOOK.md): Load for any interaction with an account or user inside their first 100 days, or one who has not yet reached the desired outcome they stated at signup.
 - [our-mistake](moments/our-mistake/PLAYBOOK.md): Load when we caused the problem: an outage, a data issue, a missed promise, a wrong answer, or a repeat of something we said was fixed.
 - [refund-or-credit](moments/refund-or-credit/PLAYBOOK.md): Load when money is on the table: a refund or credit is requested, or one is clearly owed even if unasked.
+- [renewal-and-expansion](moments/renewal-and-expansion/PLAYBOOK.md): Load when a renewal is inside ninety days, or when a customer shows an expansion signal (new seats, a second team, a question about limits, a public hire) and the right move is to grow the relationship, not to sell.
 - [silence](moments/silence/PLAYBOOK.md): Load when usage dropped or stopped, imports or logins went quiet for 30 days, or a formerly responsive person has stopped replying.
 - [small-moment](moments/small-moment/PLAYBOOK.md): Load for transactional interactions: password resets, invoice line questions, where-is-a-setting, how-do-I, and anything that takes one reply to close.
 - [their-bad-day](moments/their-bad-day/PLAYBOOK.md): Load when the customer is having a hard time that isn't about us: layoffs, a champion who left, an exec departure, or personal news they raised with us directly.

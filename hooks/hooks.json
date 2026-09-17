@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/shift.py\" status --brief"
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/shift.py\" status --brief; python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/engine.py\" status --brief"
           }
         ]
       }
