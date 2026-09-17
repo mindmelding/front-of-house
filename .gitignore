@@ -1,7 +1,8 @@
-overlay/*
-!overlay/README.md
-!overlay/*.template.md
-!overlay/mcp.template.json
+# The overlay is private. Ignore the DIRECTORY, not its contents: `engine.py sync init` writes an
+# allowlist .gitignore inside it, and a nested .gitignore can re-include anything a parent `overlay/*`
+# rule ignored. It cannot re-include inside an ignored directory. The canon's own overlay files
+# (README.md, *.template.md, mcp.template.json) are already tracked; add a new template with `git add -f`.
+overlay/
 inbox/*.local.md
 .DS_Store
 __pycache__/

@@ -11,6 +11,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Overlay stays private (only the README and templates are tracked)
+        run: |
+          bad=$(git ls-files overlay | grep -Ev '^overlay/(README\.md|[^/]+\.template\.md|mcp\.template\.json)$' || true)
+          if [ -n "$bad" ]; then echo "private overlay file(s) tracked in the canon:"; echo "$bad"; exit 1; fi
       - name: Lexicon check (the canon eats its own cooking)
         run: python3 scripts/fohcheck.py --repo
       - name: Adapters are fresh

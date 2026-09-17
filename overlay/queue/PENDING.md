@@ -1,4 +1,0 @@
-# Proposals awaiting a decision (2)
-
-- **2026-09-17-01** [migration-and-export / new-situation] We are the ones leaving: telling a customer or prospect, before they ask, that the product they use or asked to try is being wound down, with the replacement direction, what stays live, and that cutover happens only on their go. No moment covers the company sunsetting its own product. (evidence: 2; Fjord 2026-09-08; Kestrel 2026-08-19; Nimbus 2026-09-16)
-- **2026-09-17-02** [renewal-and-expansion / lexicon] "I'd prefer to avoid buying an extra CRM seat if reports can be retrieved through Claude" and "CRM use may eventually become entirely prompt-based": a buyer's words for the outcome the new direction sells, no CRM to open. Pairs with the existing "agent system that makes CRM redundant" line. (evidence: 1; Nimbus 2026-09-16 (Devon))

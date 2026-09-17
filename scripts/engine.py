@@ -918,7 +918,9 @@ def sync_init(remote=None):
     if not (O / ".git").exists():
         _git("init", "-q", "-b", "main", check=True)
     (O / ".gitignore").write_text(HOUSE_GITIGNORE)
-    if not (O / "README.md").exists() or "The house" not in (O / "README.md").read_text():
+    # Only when absent: the canon tracks overlay/README.md, and overwriting a tracked file in the
+    # outer repo is how house content once reached the public canon.
+    if not (O / "README.md").exists():
         (O / "README.md").write_text(HOUSE_README)
     if remote:
         if _git("remote", "get-url", "origin").returncode:
