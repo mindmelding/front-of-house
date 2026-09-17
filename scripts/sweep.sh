@@ -34,7 +34,7 @@ PROMPT="Follow $ROOT/engine/SWEEP.md exactly, top to bottom, as the scheduled sw
 if timeout "$TIMEOUT_SECS" "$CLAUDE_BIN" -p "$PROMPT" \
     --output-format text \
     --permission-mode acceptEdits \
-    --allowedTools "Read,Write,Edit,Glob,Grep,Bash(python3 scripts/*),Bash(python3 $ROOT/scripts/*),Bash(cat *),Bash(ls *),mcp__moonbase__*,mcp__*" \
+    --allowedTools "Read,Write,Edit,Glob,Grep,Bash(python3 scripts/*),Bash(python3 $ROOT/scripts/*),Bash(cat *),Bash(ls *),mcp__moonbase__*" \
     "${MCP_ARGS[@]}" >> "$LOG" 2>&1; then
   log "agent exited 0"
 else
