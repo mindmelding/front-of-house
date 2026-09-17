@@ -48,7 +48,7 @@ That writes the drill line into the house file, the rule (if any) under "Where w
 
 ## After three
 
-Say what changed: which silos moved, from what confidence to what. Then stop. A drill session is fifteen minutes, not an afternoon; the interview is the point and it does not scale.
+Say what changed: which silos moved, from what confidence to what, and the commits (`engine.py sync status`; each recorded drill committed itself). Then stop. A drill session is fifteen minutes, not an afternoon; the interview is the point and it does not scale.
 
 ## Hardening the tooling
 

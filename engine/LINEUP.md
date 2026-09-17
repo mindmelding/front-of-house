@@ -61,7 +61,7 @@ Exactly one, from the open questions at the bottom of `overlay/method.md`. Never
 
 ## Close
 
-Say, in two lines, what was written and what you are watching next. Then stop. A lineup that changed no file was a chat.
+Say, in two lines, what was written and what you are watching next, and `python3 scripts/engine.py sync status` for the commits this lineup produced (every decision above committed itself). Then stop. A lineup that changed no file was a chat.
 
 ## Rules
 

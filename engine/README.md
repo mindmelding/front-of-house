@@ -51,6 +51,12 @@ The one mechanism that makes it turn without ceremony: **the sweep diffs every d
 
 `engine.py scorecard` prints them. **Draft survival**: how much of a held draft went out untouched. The house is good when this rises. **Pick precision**: the share of surfaced items you graded right. The engine's judgment is good when this rises. Everything else is a diagnostic.
 
+## Sync: the house is a repo, and every decision is a commit
+
+`engine.py sync init --remote <url>` turns the overlay into a git repo that tracks **learning files only** (an allowlist in its `.gitignore`: house, journal, queue, drills, evals, lexicon, method). From then on every approve, reword, or deny at lineup, every recorded drill, every resolved draft, and every sweep close commits and pushes on its own, with a message that says what changed. Two gates run before each commit: the alias audit (a real name blocks the commit) and the allowlist (an operational file blocks it). `engine.py sync status` shows the last five commits.
+
+So the canon on GitHub stays public and slow (inbox, weekly triage, monthly upstream PRs), and the house on GitHub is private and live: your git log is the record of the house getting better, one decision at a time, with no customer in it.
+
 ## Durability
 
 `launchd, or it does not exist.` A scheduled job that only fires while a session is open is not scheduled. Every job writes a heartbeat the SessionStart hook reads, so a dead job is visible the next morning, not next quarter. `engine/DURABILITY.md` has the rule and the checklist; `ops/` has the templates.

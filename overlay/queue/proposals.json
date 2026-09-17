@@ -1,0 +1,26 @@
+[
+  {
+    "id": "2026-09-17-01",
+    "raised": "2026-09-17",
+    "moment": "migration-and-export",
+    "kind": "new-situation",
+    "text": "We are the ones leaving: telling a customer or prospect, before they ask, that the product they use or asked to try is being wound down, with the replacement direction, what stays live, and that cutover happens only on their go. No moment covers the company sunsetting its own product.",
+    "evidence": 2,
+    "source": "Fjord 2026-09-08; Kestrel 2026-08-19; Nimbus 2026-09-16",
+    "status": "pending",
+    "decided": null,
+    "why": null
+  },
+  {
+    "id": "2026-09-17-02",
+    "raised": "2026-09-17",
+    "moment": "renewal-and-expansion",
+    "kind": "lexicon",
+    "text": "\"I'd prefer to avoid buying an extra CRM seat if reports can be retrieved through Claude\" and \"CRM use may eventually become entirely prompt-based\": a buyer's words for the outcome the new direction sells, no CRM to open. Pairs with the existing \"agent system that makes CRM redundant\" line.",
+    "evidence": 1,
+    "source": "Nimbus 2026-09-16 (Devon)",
+    "status": "pending",
+    "decided": null,
+    "why": null
+  }
+]

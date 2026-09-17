@@ -29,6 +29,10 @@ python3 scripts/engine.py alias audit
 
 Scans every learning file for any registered real name and any email address. Exit 1 on a hit. The sweep runs it before closing; the refresh runs it before anything goes upstream; `make check` can run it too. `--fix` rewrites in place.
 
+## The house repo
+
+Because of this line, the overlay can be a git repo of its own (`engine.py sync init --remote <url>`), tracking learning files only. The engine commits after every decision and refuses to commit if the audit finds a leak or an operational file is staged. That repo is what "publish your house" means.
+
 ## The rule the audit cannot enforce
 
 The audit only knows the names you registered. **Register before you write.** The sweep and prime specs both say: `alias add` every account and person you touch, before deriving anything from them. A name that never got registered will pass the audit and still be a leak. When in doubt, register it.

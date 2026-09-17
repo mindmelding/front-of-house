@@ -36,5 +36,7 @@ jobs:
           E queue add --moment silence --kind rule --text "A heads-down statement sets a quiet clock" --evidence 2
           E queue decide $(date +%Y-%m-%d)-01 approve
           E drill next --n 3
+          git config --global user.email ci@example.com && git config --global user.name ci
+          E sync init && E sync now --no-push && E sync status
           E alias audit
           ! grep -rqi "Example Customer Inc\|Jane Example" "$FOH_OVERLAY/house" "$FOH_OVERLAY/queue"

@@ -28,6 +28,8 @@ engine DOES (briefs, held drafts, the ledger) stays operational and private.
   engine.py drill next [--n 3] | record --scenario ID --moment M --house-score N --operator-score N \
             --delta "..." [--rule "..."] [--answer-file f]
 
+  engine.py sync init [--remote <url>] | now [--message "..."] [--no-push] | status
+                                             the house repo: learning files only, one commit per decision
   engine.py heartbeat start | end --signal "..." | check [--brief]
   engine.py watermark get | set <iso-datetime>
   engine.py journal --moment M --channel C --outcome O --score N --lesson "..." [--diff "..."]
@@ -491,6 +493,7 @@ def house_rule_edit(moment, n, drop=False):
     path.write_text(text)
     _recompute(moment)
     house_index()
+    sync(f"house: {'drop' if drop else 'reinforce'} {moment} #{n}", quiet=True)
     return 0
 
 
@@ -620,6 +623,7 @@ def queue_decide(pid, decision, text=None, why=None):
                 f.write(f"- [{TODAY}] {x['moment']}: {final}\n")
     save_queue(q)
     print(f"{pid}: {x['status']}")
+    sync(f"lineup: {decision} {pid} ({x['moment']}/{x['kind']})", quiet=True)
     return 0
 
 
@@ -684,6 +688,7 @@ def drafts_resolve(a):
     outcome = {"sent-as-is": "approved", "edited": "edited", "not-sent": "rejected"}[a.outcome]
     journal(fm.get("moment", "small-moment"), fm.get("channel", "email"), outcome, a.score, a.lesson or f"draft {a.outcome}", diff or None)
     print(f"resolved {f.name}: {a.outcome}" + (f", survival {survival:.2f}" if survival is not None else ""))
+    sync(f"journal: draft {a.outcome} ({fm.get('moment')})", quiet=True)
     return 0
 
 
@@ -851,6 +856,7 @@ def drill_record(a):
     _recompute(a.moment)
     house_index()
     print("drill: " + line)
+    sync(f"drill: {a.scenario} ({a.moment})", quiet=True)
     return 0
 
 
@@ -859,6 +865,127 @@ def cmd_drill(a):
         return drill_next(a.n)
     if a.sub == "record":
         return drill_record(a)
+    return 2
+
+
+# ---------------------------------------------------------------------------
+# sync: every learning decision becomes a commit in the house repo (aliases only)
+# ---------------------------------------------------------------------------
+
+HOUSE_GITIGNORE = """# The house repo tracks LEARNING files only (aliases, no customers). Everything else in the overlay
+# is operational (real names, secrets) and never leaves this machine. Allowlist, not blocklist.
+*
+!.gitignore
+!README.md
+!house/
+!house/**
+!journal/
+!journal/**
+!queue/
+!queue/**
+!evals/
+!evals/**
+!drills/
+!drills/**
+!method.md
+!lexicon.md
+!CHANGELOG.md
+"""
+
+HOUSE_README = """# The house
+
+What this team learned about doing customer work, split by moment, with evidence. Names are aliases
+assigned by Front of House's engine; no customer, person, email, or record link appears here. The
+operational side of the same overlay (briefs, held drafts, the ledger of graded picks) is not in this repo.
+
+Written by `scripts/engine.py` in [front-of-house](https://github.com/mindmelding/front-of-house). Every
+approved proposal, recorded drill, resolved draft, and sweep is a commit. `house/README.md` has the
+confidence per moment.
+"""
+
+LEARNING_PATHS = re.compile(r"^(house/|journal/|queue/|evals/|drills/|method\.md$|lexicon\.md$|CHANGELOG\.md$|README\.md$|\.gitignore$)")
+
+
+def _git(*args, check=False):
+    import subprocess
+    r = subprocess.run(["git", "-C", str(O), *args], capture_output=True, text=True)
+    if check and r.returncode:
+        raise RuntimeError(r.stderr.strip() or r.stdout.strip())
+    return r
+
+
+def sync_init(remote=None):
+    if not (O / ".git").exists():
+        _git("init", "-q", "-b", "main", check=True)
+    (O / ".gitignore").write_text(HOUSE_GITIGNORE)
+    if not (O / "README.md").exists() or "The house" not in (O / "README.md").read_text():
+        (O / "README.md").write_text(HOUSE_README)
+    if remote:
+        if _git("remote", "get-url", "origin").returncode:
+            _git("remote", "add", "origin", remote, check=True)
+        else:
+            _git("remote", "set-url", "origin", remote, check=True)
+    print(f"house repo ready at {O} (learning files only; the alias audit gates every engine commit)" + (f", origin {remote}" if remote else ""))
+    return 0
+
+
+def _leak_exists():
+    a = aliases()
+    reals = [real for bucket in ("accounts", "people", "domains") for real in a[bucket]]
+    for f in _learning_files():
+        text = f.read_text(errors="ignore")
+        if EMAIL.search(text):
+            return True
+        for real in reals:
+            if re.search(r"(?<![\w.-])" + re.escape(real) + r"(?![\w-])", text, re.I):
+                return True
+    return False
+
+
+def sync(message=None, push=True, quiet=False):
+    """Commit the learning files and push if a remote exists. Never fatal to the caller."""
+    if not (O / ".git").exists():
+        return False
+    if _leak_exists():
+        print("sync skipped: alias audit found a leak (run engine.py alias audit --fix)")
+        return False
+    _git("add", "-A")
+    staged = [l for l in _git("diff", "--cached", "--name-only").stdout.splitlines() if l.strip()]
+    if not staged:
+        return False
+    bad = [f for f in staged if not LEARNING_PATHS.match(f)]
+    if bad:
+        _git("reset", "-q")
+        print("sync skipped: non-learning file(s) would be committed: " + ", ".join(bad[:5]))
+        return False
+    msg = message or f"house: {NOW.strftime('%Y-%m-%d %H:%M')}"
+    r = _git("commit", "-q", "-m", msg)
+    if r.returncode:
+        print("sync: commit failed: " + (r.stderr.strip() or r.stdout.strip())[:200])
+        return False
+    pushed = ""
+    if push and not _git("remote", "get-url", "origin").returncode:
+        pr = _git("push", "-q", "-u", "origin", "HEAD")
+        pushed = ", pushed" if pr.returncode == 0 else ", push failed (" + (pr.stderr.strip().splitlines() or ["?"])[-1][:120] + ")"
+    if not quiet:
+        print(f"sync: committed \"{msg}\"{pushed}")
+    return True
+
+
+def cmd_sync(a):
+    if a.sub == "init":
+        return sync_init(a.remote)
+    if a.sub == "now":
+        if not sync(a.message, push=not a.no_push):
+            print("sync: nothing to commit")
+        return 0
+    if a.sub == "status":
+        if not (O / ".git").exists():
+            print("no house repo; run engine.py sync init [--remote <url>]"); return 0
+        print(_git("log", "--oneline", "-5").stdout.strip() or "no commits yet")
+        r = _git("remote", "get-url", "origin"); print("origin: " + (r.stdout.strip() if not r.returncode else "none"))
+        print("dirty: " + ("yes" if _git("status", "--porcelain").stdout.strip() else "no"))
+        return 0
     return 2
 
 
@@ -877,6 +1004,8 @@ def cmd_heartbeat(a):
     elif a.sub == "end":
         h.update({"ended": NOW.isoformat(timespec="seconds"), "signal": a.signal})
     write_json(p("state", "heartbeat.json"), h)
+    if a.sub == "end":
+        sync(f"sweep: {a.signal[:72]}", quiet=True)
     if a.sub == "check":
         print(heartbeat_line())
     return 0
@@ -1029,6 +1158,12 @@ def main():
     x = ss.add_parser("next"); x.add_argument("--n", type=int, default=3)
     x = ss.add_parser("record"); x.add_argument("--scenario", required=True); x.add_argument("--moment", required=True); x.add_argument("--house-score", type=int, required=True); x.add_argument("--operator-score", type=int, required=True); x.add_argument("--delta", required=True); x.add_argument("--rule"); x.add_argument("--answer-file")
     s.set_defaults(fn=cmd_drill)
+
+    s = sub.add_parser("sync"); ss = s.add_subparsers(dest="sub", required=True)
+    x = ss.add_parser("init"); x.add_argument("--remote")
+    x = ss.add_parser("now"); x.add_argument("--message"); x.add_argument("--no-push", action="store_true")
+    ss.add_parser("status")
+    s.set_defaults(fn=cmd_sync)
 
     s = sub.add_parser("heartbeat"); ss = s.add_subparsers(dest="sub", required=True)
     ss.add_parser("start"); x = ss.add_parser("end"); x.add_argument("--signal", default="")

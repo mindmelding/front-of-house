@@ -108,6 +108,8 @@ ENGINE    sweep · lineup · drill · refresh                   scripts/engine.p
 
 **Anonymized at write time.** Learning files (house, journal, queue, drills, private evals, lexicon, method) only ever hold aliases: accounts become Alder and Basalt, people become Avery and Blake, emails and record links are scrubbed. Operational files (briefs, held drafts, the ledger) keep real names and never leave the overlay. `engine.py alias audit` is the gate. Because of that line, two teams can drill the same scenario and compare houses without either seeing the other's customers. `engine/ANONYMIZATION.md`.
 
+**The house is a repo.** `engine.py sync init --remote <url>` makes the overlay a private git repo of learning files only. Every lineup decision, drill, resolved draft, and sweep commits and pushes itself, gated by the alias audit. The canon on GitHub stays public and slow; your house on GitHub is private and live.
+
 **Durable or it does not exist.** Scheduled work runs from launchd or cron, never from an in-session routine, and every job reports its own death through the heartbeat. `engine/DURABILITY.md` has the story and the checklist.
 
 ## How it stays alive
