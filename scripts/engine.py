@@ -9,7 +9,7 @@ engine DOES (briefs, held drafts, the ledger) stays operational and private.
   engine.py scorecard                        draft survival, pick precision, house confidence
 
   engine.py alias add "<real>" --kind account|person|domain [--org "<account>"]
-  engine.py alias list | seed | apply [file|-] | reveal [file|-] | audit [--fix]
+  engine.py alias list | seed | drop "<real>" | apply [file|-] | reveal [file|-] | audit [--fix]
 
   engine.py house init | status | index
   engine.py house add <moment> "<rule>" [--evidence N] [--source "..."] [--confirmed]
@@ -253,7 +253,7 @@ def alias_seed():
     skip = re.compile(r"^(active|onboarding|quiet|churned|hot|gone|we owe|shape|gaps|delight|source|onboarding / early eval|quiet / dormant customers|churned / closed|active / engaged)", re.I)
     n = 0
     for name in sorted(found):
-        if not name or skip.match(name) or len(name.split()) > 4 or name.lower() in ("sean", "us", "eng", "sean + eng"):
+        if not name or skip.match(name) or len(name.split()) > 4 or re.search(r"[\d/()]", name) or name.lower() in ("sean", "us", "eng", "sean + eng"):
             continue
         alias_add(name, "account", quiet=True); n += 1
     print(f"seeded {n} account alias(es) from the overlay; add people with: engine.py alias add \"<Full Name>\" --kind person --org \"<Account>\"")
@@ -263,6 +263,13 @@ def alias_seed():
 def cmd_alias(a):
     if a.sub == "seed":
         return alias_seed()
+    if a.sub == "drop":
+        al = aliases()
+        for bucket in ("accounts", "people", "domains"):
+            for k in [k for k, v in al[bucket].items() if k == a.real or v.get("short_for") == a.real]:
+                del al[bucket][k]; print(f"dropped {k}")
+        save_aliases(al)
+        return 0
     if a.sub == "add":
         alias_add(a.real, a.kind, a.org)
         return 0
@@ -976,7 +983,7 @@ def main():
 
     s = sub.add_parser("alias"); ss = s.add_subparsers(dest="sub", required=True)
     x = ss.add_parser("add"); x.add_argument("real"); x.add_argument("--kind", required=True, choices=["account", "person", "domain"]); x.add_argument("--org")
-    ss.add_parser("list"); ss.add_parser("seed")
+    ss.add_parser("list"); ss.add_parser("seed"); x = ss.add_parser("drop"); x.add_argument("real")
     x = ss.add_parser("apply"); x.add_argument("file", nargs="?")
     x = ss.add_parser("reveal"); x.add_argument("file", nargs="?")
     x = ss.add_parser("audit"); x.add_argument("--fix", action="store_true")

@@ -11,7 +11,7 @@
   Remove:   launchctl unload ~/Library/LaunchAgents/com.front-of-house.sweep.plist
 
   Not done until it has run once on its own schedule and the SessionStart hook reported it.
-  Search for REPLACE_ before loading; a placeholder shipped once.
+  Grep for the placeholder token (REPLACE followed by an underscore) before loading; a placeholder shipped once.
 -->
 <plist version="1.0">
 <dict>
