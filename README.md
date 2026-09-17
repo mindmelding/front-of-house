@@ -60,7 +60,7 @@ engine/              how the canon compounds: sweep, lineup, drill, refresh, pri
 drills/              the public scenario bank, no answers; the answers are your house
 commands/            Claude Code slash commands: /lineup, /drill, /sweep, /refresh, /prime
 ops/                 launchd template for the scheduled sweep
-scripts/             fohcheck.py (lexicon), build_adapters.py, shift.py (first shift), engine.py (the loop's bookkeeping), sweep.sh
+scripts/             fohcheck.py (lexicon), build_adapters.py, shift.py (first shift), engine.py (the loop's bookkeeping), sweep.sh, mcp_call.py (stdlib read-only MCP client, the sweep's fallback)
 FIRST-SHIFT.md       onboarding for the agent itself: in-motion read, interview, proof, first brief
 first-shift/         questions, the in-motion read, the first brief
 hooks/               Claude Code plugin hook: SessionStart reports setup state, the sweep heartbeat, and what needs deciding

@@ -23,7 +23,7 @@ python3 scripts/engine.py watermark get
 
 ## 1. Delta
 
-Through the confirmed source, pull everything since the watermark: messages in and out, meetings, usage changes, for accounts that pass `overlay/customers.md`. Where the adapter warns that one call misses what another sees (the Moonbase adapter does), cross-check before asserting "no record."
+Through the confirmed source, pull everything since the watermark. If the connector's tools did not mount in this session, do not stop: `python3 scripts/mcp_call.py tools` speaks to the same server from `overlay/mcp.json` with the same key, read-only (`mcp_call.py call <tool> '<json>'`, `mcp_call.py accounts --since <iso>`), and say so in the signal. Pull everything since the watermark: messages in and out, meetings, usage changes, for accounts that pass `overlay/customers.md`. Where the adapter warns that one call misses what another sees (the Moonbase adapter does), cross-check before asserting "no record."
 
 Register every account and person you touch before writing anything derived from them:
 
@@ -106,4 +106,4 @@ Then print exactly one line: `SWEEP DONE: <the same signal>`. If any step failed
 
 ## What the sweep never does
 
-Never asks a question. Never sends. Never moves money, changes access, or shares anything outside the building. Never writes a real name into house, journal, queue, drills, or evals. Never proposes on one occurrence. Never re-proposes a denial. Never fabricates a milestone to make a delight moment work.
+Never writes outside the overlay and its scratch directory; the canon is tracked and the sweep does not commit. Never asks a question. Never sends. Never moves money, changes access, or shares anything outside the building. Never writes a real name into house, journal, queue, drills, or evals. Never proposes on one occurrence. Never re-proposes a denial. Never fabricates a milestone to make a delight moment work.
