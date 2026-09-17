@@ -193,7 +193,7 @@ def _pairs(a, reverse=False):
 def anonymize(text):
     a = aliases()
     for real, al in _pairs(a):
-        text = re.sub(r"(?<![\w@.-])" + re.escape(real) + r"(?![\w-])", al, text, flags=re.I)
+        text = re.sub(r"(?<![\w.-])" + re.escape(real) + r"(?![\w-])", al, text, flags=re.I)
     text = EMAIL.sub("<email>", text)
     text = PHONE.sub("<phone>", text)
     text = ID_LINK.sub("<link>", text)
@@ -223,7 +223,7 @@ def alias_audit(fix=False):
     for f in _learning_files():
         text = f.read_text(errors="ignore")
         for real, bucket in reals:
-            if re.search(r"(?<![\w@.-])" + re.escape(real) + r"(?![\w-])", text, re.I):
+            if re.search(r"(?<![\w.-])" + re.escape(real) + r"(?![\w-])", text, re.I):
                 leaks.append((f, real))
         if EMAIL.search(text):
             leaks.append((f, "<an email address>"))
