@@ -16,7 +16,7 @@ npx skills add scmancillas/front-of-house -g -a github-copilot
     "moonbase": {
       "type": "http",
       "url": "https://yavin.moonbase.ai/mcp",
-      "headers": { "Authorization": "Bearer ${env:MOONBASE_MCP_KEY}" }
+      "headers": { "Authorization": "Bearer ${MOONBASE_MCP_KEY}" }
     }
   }
 }

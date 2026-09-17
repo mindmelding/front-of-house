@@ -32,10 +32,10 @@ python3 scripts/engine.py house init >> "$LOG" 2>&1
 PROMPT="Follow $ROOT/engine/SWEEP.md exactly, top to bottom, as the scheduled sweep. Working directory is $ROOT; the overlay is $OVERLAY. Ask no questions. Send nothing. Register every account and person with scripts/engine.py alias add before writing anything derived from them. End with scripts/engine.py heartbeat end --signal and one line starting SWEEP DONE: or SWEEP PARTIAL:. ${1:-}"
 
 if timeout "$TIMEOUT_SECS" "$CLAUDE_BIN" -p "$PROMPT" \
-    --output-format text \
+    --output-format text --strict-mcp-config \
     --permission-mode acceptEdits \
     --allowedTools "Read,Write,Edit,Glob,Grep,Bash(python3 scripts/*),Bash(python3 $ROOT/scripts/*),Bash(cat *),Bash(ls *),mcp__moonbase__*" \
-    "${MCP_ARGS[@]}" >> "$LOG" 2>&1; then
+    "${MCP_ARGS[@]}" < /dev/null >> "$LOG" 2>&1; then
   log "agent exited 0"
 else
   rc=$?

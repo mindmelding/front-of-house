@@ -30,7 +30,7 @@ Durable scheduling is necessary and not sufficient. A scheduled job can exit non
 - [ ] Ran once on its own schedule, unattended, and produced output.
 - [ ] Failure is visible without going to look (the heartbeat line in the hook).
 - [ ] No placeholder left in the config. Search for `REPLACE_ME` before loading.
-- [ ] Secrets come from a file the scheduler can read, not from a shell that only exists in your terminal.
+- [ ] Secrets come from a file the scheduler can read, not from a shell that only exists in your terminal. For the sweep that file is `overlay/secrets.env` (gitignored), sourced by `scripts/sweep.sh`; `overlay/mcp.json` references it as `${MOONBASE_MCP_KEY}` (Claude Code expands `${VAR}`, not `${env:VAR}`). The first hand run on 2026-09-17 failed for exactly this reason and reported PARTIAL instead of pretending.
 
 ## Templates
 

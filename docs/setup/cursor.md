@@ -21,7 +21,7 @@ That puts 15 rules in `.cursor/rules/` and stamps the canon's absolute path into
   "mcpServers": {
     "moonbase": {
       "url": "https://yavin.moonbase.ai/mcp",
-      "headers": { "Authorization": "Bearer ${env:MOONBASE_MCP_KEY}" }
+      "headers": { "Authorization": "Bearer ${MOONBASE_MCP_KEY}" }
     }
   }
 }

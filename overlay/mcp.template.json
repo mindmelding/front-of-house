@@ -3,7 +3,7 @@
     "moonbase": {
       "url": "https://yavin.moonbase.ai/mcp",
       "headers": {
-        "Authorization": "Bearer ${env:MOONBASE_MCP_KEY}"
+        "Authorization": "Bearer ${MOONBASE_MCP_KEY}"
       }
     }
   }
